@@ -28,18 +28,18 @@ Original App Design Project - README Template
 
 **Required Must-have Stories**
 
-* Users can log in, sign up, and log out of the app
-* Users can add a game review post
-* Users can search for games or other users
-* Users can view a detailed page about a game and see user reviews
-* Users can view a feed of recent reviews
-* Users can view their own profile with their own game reviews
+- [ ] Users can log in, sign up, and log out of the app
+- [ ] Users can add a game review post
+- [ ] Users can search for games or other users
+- [ ] Users can view a detailed page about a game and see user reviews
+- [ ] Users can view a feed of recent reviews
+- [ ] Users can view their own profile with their own game reviews
 
 **Optional Nice-to-have Stories**
 
-* Users can update their credentials in profile settings
-* Users can enable a mode to only view reviews from verified users
-* Users can follow other users
+- [ ] Users can update their credentials in profile settings
+- [ ] Users can enable a mode to only view reviews from verified users
+- [ ] Users can follow other users
 
 ### 2. Screen Archetypes
 
