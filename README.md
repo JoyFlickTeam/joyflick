@@ -29,6 +29,7 @@ JoyFlick is an application that will allow users to view and post video game rev
 **Required Must-have Stories**
 
 - [ ] Users can log in, sign up, and log out of the app
+- [ ] Users can add a profile picture
 - [ ] Users can add a game review post
 - [ ] Users can search for games or other users
 - [ ] Users can view a detailed page about a game and see user reviews
