@@ -33,8 +33,9 @@ JoyFlick is an application that will allow users to view and post video game rev
 - [ ] Users can add a game review post
 - [ ] Users can search for games or other users
 - [ ] Users can view a detailed page about a game and see user reviews
-- [ ] Users can view a feed of recent reviews
-- [ ] Users can view their own profile with their own game reviews
+- [ ] Users can view a feed of recent reviewed games
+- [ ] Users can view user profiles with that user's game reviews
+- [ ] Users can view and post comments on game reviews
 
 **Optional Nice-to-have Stories**
 
@@ -44,29 +45,67 @@ JoyFlick is an application that will allow users to view and post video game rev
 
 ### 2. Screen Archetypes
 
-* [list first screen here]
-   * [list associated required story here]
-   * ...
-* [list second screen here]
-   * [list associated required story here]
-   * ...
+* Login
+   * Users can log in, sign up, and log out of the app
+* Signup
+   * Users can log in, sign up, and log out of the app
+* Main
+   * Users can view a feed of recent reviewed games
+* Search
+   * Users can search for games or other users
+* Profile
+   * Users can view user profiles with that user's game reviews
+   * Users can add a profile picture
+* Game
+   * Users can view a detailed page about a game and see user reviews
+* Post Review
+   * Users can add a game review post
+* Review Detail
+   * Users can view a detailed page about a game and see user reviews
+   * Users can view and post comments on game reviews
+* Comment
+   * Users can view and post comments on game reviews
+* Game Selection
+   * Users can search for games or other users
 
 ### 3. Navigation
 
 **Tab Navigation** (Tab to Screen)
 
-* [fill out your first tab]
-* [fill out your second tab]
-* [fill out your third tab]
+* Home to Main
+* Add to Post Review
+* User to Profile
 
 **Flow Navigation** (Screen to Screen)
 
-* [list first screen here]
-   * [list screen navigation here]
-   * ...
-* [list second screen here]
-   * [list screen navigation here]
-   * ...
+* Login
+   * Main
+   * Signup
+* Signup
+   * Main
+   * Login
+* Main
+   * Search
+   * Game
+* Search
+   * Game
+   * Profile
+* Profile
+   * Review Detail
+* Game
+   * Post Review
+   * Review Detail
+* Post Review
+   * Game Selection
+   * Game
+* Review Detail
+   * Game
+   * Profile
+   * Comment
+* Comment
+   * Review Detail
+* Game Selection
+   * Post Review
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
