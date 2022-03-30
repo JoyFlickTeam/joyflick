@@ -112,6 +112,7 @@ JoyFlick is an application that will allow users to view and post video game rev
 <img src="https://i.imgur.com/5avtQrB.png" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
+<img src="https://i.imgur.com/bsksLTE.png" width=600>
 
 ### [BONUS] Interactive Prototype
 
