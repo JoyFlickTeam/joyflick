@@ -123,7 +123,7 @@ JoyFlick is an application that will allow users to view and post video game rev
    | Property      | Type     | Description |
    | ------------- | -------- | ------------|
    | postId        | Number   | unique id for the user post (default field) |
-   | user          | Pointer to User| post user |
+   | user          | Pointer to User | post user |
    | gameId        | String     | game that the user is posting about |
    | review        | String   | user's review about the game |
    | createdAt     | DateTime | date when post is created (default field) |
@@ -131,10 +131,10 @@ JoyFlick is an application that will allow users to view and post video game rev
    | Property      | Type     | Description |
    | ------------- | -------- | ------------|
    | commentId     | Number   | unique id for the comment (default field) |
-   | postId        | String   | post the user is commenting on |
+   | postId        | String   | id of the post the user is commenting on |
    | user          | Pointer to User   | comment user |
    | comment       | String   | user's comment on a post |
-   | createdAt     | DateTime | date when post is created (default field) |
+   | createdAt     | DateTime | date when comment is created (default field) |
 #### User
    | Property      | Type     | Description |
    | ------------- | -------- | ------------|
