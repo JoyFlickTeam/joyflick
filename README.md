@@ -1,6 +1,3 @@
-Original App Design Project - README Template
-===
-
 # JoyFlick
 
 ## Table of Contents
@@ -117,7 +114,6 @@ JoyFlick is an application that will allow users to view and post video game rev
 <img src="https://i.imgur.com/0c4RxYt.gif" width=349>
 
 ## Schema 
-[This section will be completed in Unit 9]
 ### Models
 #### Post
    | Property      | Type     | Description |
@@ -126,6 +122,7 @@ JoyFlick is an application that will allow users to view and post video game rev
    | user          | Pointer to User | post user |
    | gameId        | String     | game that the user is posting about |
    | post          | String   | user's review about the game |
+   | rating        | Double   | user's number rating of the game |
    | createdAt     | DateTime | date when post is created (default field) |
 #### Comments
    | Property      | Type     | Description |
