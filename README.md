@@ -126,8 +126,22 @@ JoyFlick is an application that will allow users to view and post video game rev
    | user          | Pointer to User| post user |
    | gameId        | String     | game that the user is posting about |
    | review        | String   | user's review about the game |
-   | commentsCount | Number   | number of comments that has been posted to an image |
    | createdAt     | DateTime | date when post is created (default field) |
+#### Comments
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | commentId     | Number   | unique id for the comment (default field) |
+   | postId        | String   | post the user is commenting on |
+   | user          | Pointer to User   | comment user |
+   | comment       | String   | user's comment on a post |
+   | createdAt     | DateTime | date when post is created (default field) |
+#### User
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | userId        | Number   | unique id for the user (default field) |
+   | username      | String   | name associated with user |
+   | password      | String   | user's password |
+   | profilePicture | Image   | user's profile picture |
 ### Networking
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
