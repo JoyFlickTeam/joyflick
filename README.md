@@ -119,7 +119,15 @@ JoyFlick is an application that will allow users to view and post video game rev
 ## Schema 
 [This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+#### Post
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | postId        | Number   | unique id for the user post (default field) |
+   | user          | Pointer to User| post user |
+   | gameId        | String     | game that the user is posting about |
+   | review        | String   | user's review about the game |
+   | commentsCount | Number   | number of comments that has been posted to an image |
+   | createdAt     | DateTime | date when post is created (default field) |
 ### Networking
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
