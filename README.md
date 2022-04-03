@@ -30,7 +30,7 @@ JoyFlick is an application that will allow users to view and post video game rev
 - [ ] Users can add a game review post
 - [ ] Users can search for games or other users
 - [ ] Users can view a detailed page about a game and see user reviews
-- [ ] Users can view a feed of recent reviewed games
+- [ ] Users can view a feed of recently released games
 - [ ] Users can view user profiles with that user's game reviews
 - [ ] Users can view and post comments on game reviews
 
@@ -141,7 +141,7 @@ JoyFlick is an application that will allow users to view and post video game rev
    | profilePicture | Image   | user's profile picture |
 ### Networking
 - Home Screen
-  - (GET) Query all games from api according to their ratings.
+  - (GET) Query all games from api according to recent releases.
 - Game Screen
   - (GET) Query all the users who have reviewed the game.
 - Comment Screen
