@@ -143,7 +143,7 @@ JoyFlick is an application that will allow users to view and post video game rev
 - Home Screen
   - (GET) Query all games from api according to recent releases.
 - Game Screen
-  - (GET) Query all the users who have reviewed the game.
+  - (GET) Query all the users who have reviewed the game, including each rating.
 - Comment Screen
   - (POST) Adding a comment on a review for a game.
 - Search Screen
