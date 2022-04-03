@@ -140,6 +140,8 @@ JoyFlick is an application that will allow users to view and post video game rev
    | password      | String   | user's password |
    | profilePicture | Image   | user's profile picture |
 ### Networking
+- Sign Up Screen
+  - (POST) send the username and password to the user table.
 - Home Screen
   - (GET) Query all games from api according to recent releases.
 - Game Screen
