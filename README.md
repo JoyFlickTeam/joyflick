@@ -141,21 +141,21 @@ JoyFlick is an application that will allow users to view and post video game rev
    | profilePicture | Image   | user's profile picture |
 ### Networking
 - Home Screen
-  - (Read/GET) Query all games from api accordingly with their ratings
+  - (GET) Query all games from api according to their ratings.
 - Game Screen
-  - (GET) Query all the users who reviewed the game.
+  - (GET) Query all the users who have reviewed the game.
 - Comment Screen
-  - (Post) Adding a Comment on for a game.
+  - (POST) Adding a comment on a review for a game.
 - Search Screen
   - (GET) Query the name of the game/users from the api. 
-- Post review Screen
+- Post Review Screen
   - (POST) Add a post for the current user.
 - Review Detail Screen
-  - (Get) Get the details of the comments made by and uesr
+  - (GET) Get the details of the comments made by a user
   - (POST) Add a comment
 - Game Selection 
   - (GET) Query the name of the game from the api.
 - Profile Screen
-  - (GET) Query all the post and reviews made by the user.
+  - (GET) Query all the posts made by the user.
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
