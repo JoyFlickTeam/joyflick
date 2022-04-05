@@ -141,7 +141,7 @@ JoyFlick is an application that will allow users to view and post video game rev
    | profilePicture | Image   | user's profile picture |
 ### Networking
 - Sign Up Screen
-  - (POST) send the username and password to the user table.
+  - (POST) Send the username and password to the user table.
 - Home Screen
   - (GET) Query all games from api according to recent releases.
   ```java
@@ -178,6 +178,24 @@ JoyFlick is an application that will allow users to view and post video game rev
   - (GET) Query all the users who have reviewed the game, including each rating.
 - Comment Screen
   - (POST) Adding a comment on a review for a game.
+  ```java
+  Comment comment = new Comment();
+  comment.setComment(userComment);
+  comment.setUser(currentUser);
+  comment.setPost(currentPost);
+  comment.saveInBackground(new SaveCallback() {
+    @Override
+    public void done(ParseException e) {
+      if(e != null){
+        // Issue with posting comment
+        Log.e(TAG, "Issue while saving: " + e.toString());
+        return;
+      }
+      // Comment posted
+      Log.i(TAG, "Review saved successfully!");
+    }
+  });
+  ```
 - Search Screen
   - (GET) Query the name of the game/users from the api. 
 - Post Review Screen
@@ -203,25 +221,6 @@ JoyFlick is an application that will allow users to view and post video game rev
   ```
 - Review Detail Screen
   - (GET) Get the details of the comments made by a user
-  - (POST) Add a comment
-  ```java
-  Comment comment = new Comment();
-  comment.setComment(userComment);
-  comment.setUser(currentUser);
-  comment.setPost(currentPost);
-  comment.saveInBackground(new SaveCallback() {
-    @Override
-    public void done(ParseException e) {
-      if(e != null){
-        // Issue with posting comment
-        Log.e(TAG, "Issue while saving: " + e.toString());
-        return;
-      }
-      // Comment posted
-      Log.i(TAG, "Review saved successfully!");
-    }
-  });
-  ```
 - Game Selection 
   - (GET) Query the name of the game from the api.
 - Profile Screen
