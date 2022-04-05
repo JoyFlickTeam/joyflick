@@ -144,7 +144,7 @@ JoyFlick is an application that will allow users to view and post video game rev
   - (POST) send the username and password to the user table.
 - Home Screen
   - (GET) Query all games from api according to recent releases.
-  ```
+  ```java
     AsyncHttpClient client = new AsyncHttpClient();
 
     
