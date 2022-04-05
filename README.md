@@ -162,7 +162,9 @@ JoyFlick is an application that will allow users to view and post video game rev
                 
                 JsonGameListExtractor jsonextracter = new JsonGameListExtractor(responceJsonObject);
                 gamelist = jsonextracter.extractGames; // global variable gamelist
+                
 
+                //Displaying games and updating the recyclerview and other fancy client stuff...
         }
 
         @Override
