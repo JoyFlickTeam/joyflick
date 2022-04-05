@@ -182,9 +182,46 @@ JoyFlick is an application that will allow users to view and post video game rev
   - (GET) Query the name of the game/users from the api. 
 - Post Review Screen
   - (POST) Add a post for the current user.
+  ```java
+  Review review = new Review();
+  review.setPost(post);
+  review.setRating(rating);
+  review.setUser(currentUser);
+  review.setGame(currentGame);
+  review.saveInBackground(new SaveCallback() {
+    @Override
+    public void done(ParseException e) {
+      if(e != null){
+        // Issue with posting
+        Log.e(TAG, "Issue while saving: " + e.toString());
+        return;
+      }
+      // Review posted
+      Log.i(TAG, "Review saved successfully!");
+    }
+  });
+  ```
 - Review Detail Screen
   - (GET) Get the details of the comments made by a user
   - (POST) Add a comment
+  ```java
+  Comment comment = new Comment();
+  comment.setComment(userComment);
+  comment.setUser(currentUser);
+  comment.setPost(currentPost);
+  comment.saveInBackground(new SaveCallback() {
+    @Override
+    public void done(ParseException e) {
+      if(e != null){
+        // Issue with posting comment
+        Log.e(TAG, "Issue while saving: " + e.toString());
+        return;
+      }
+      // Comment posted
+      Log.i(TAG, "Review saved successfully!");
+    }
+  });
+  ```
 - Game Selection 
   - (GET) Query the name of the game from the api.
 - Profile Screen
