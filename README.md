@@ -189,5 +189,3 @@ JoyFlick is an application that will allow users to view and post video game rev
   - (GET) Query the name of the game from the api.
 - Profile Screen
   - (GET) Query all the posts made by the user.
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
