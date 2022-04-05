@@ -146,15 +146,20 @@ JoyFlick is an application that will allow users to view and post video game rev
   - (GET) Query all games from api according to recent releases.
   ```java
     AsyncHttpClient client = new AsyncHttpClient();
+    
+    RequestParams params = new RequestParams();
+    params.put("sort", "original_release_date:desc"); //release date in descending order, from latest.
+    params.put("limit", listOneBatchLimit.toString()); // listOneBatchLimit is a int value
+    params.put("offset", offsetToGet.toString()); // offsetToGet is a int value
 
     
-    client.get(API_BASE+"/"+apiTypeName+"/?api_key="+API_KEY, new TextHttpResponseHandler() {
+    client.get(API_BASE+"/"+apiTypeName+"/?api_key="+API_KEY, params, new TextHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Headers headers, String response) {
                 //responce is a raw string of xml, use convert to convert to json file
                 XmlToJson xmlToJson = new XmlToJson.Builder(response).build();
                 JsonObject responceJsonObject = xmlToJson.toJson();
-
+                
                 JsonGameListExtractor jsonextracter = new JsonGameListExtractor(responceJsonObject);
                 gamelist = jsonextracter.extractGames; // global variable gamelist
 
