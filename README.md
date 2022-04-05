@@ -140,8 +140,41 @@ JoyFlick is an application that will allow users to view and post video game rev
    | password      | String   | user's password |
    | profilePicture | Image   | user's profile picture |
 ### Networking
+- Log In Screen
+  - (GET) Log user in if they exist in the user table.
+  ```java
+  ParseUser.logInInBackground(username, password, new LogInCallback() {
+      @Override
+      public void done(ParseUser user, ParseException e) {
+          if(e != null){
+              // Error logging in
+              Log.e(TAG, "Issue with loginUser: " + e.toString());
+              return;
+          }
+          // Login success
+          // TODO: redirect user to main screen
+      }
+  });
+  ```
 - Sign Up Screen
   - (POST) Send the username and password to the user table.
+  ```java
+  ParseUser user = new ParseUser();
+  user.setUsername(username);
+  user.setPassword(password);
+  user.signUpInBackground(new SignUpCallback() {
+      @Override
+      public void done(ParseException e) {
+          if(e != null){
+              // Error signing up user
+              Log.e(TAG, "Issue with signupUser: " + e.toString());
+              return;
+          }
+          // Sign up success
+          // TODO: notify user of success, redirect user to main screen
+      }
+  });
+  ```
 - Home Screen
   - (GET) Query all games from api according to recent releases.
   ```java
