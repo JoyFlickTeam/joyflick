@@ -176,6 +176,29 @@ JoyFlick is an application that will allow users to view and post video game rev
   ```
 - Game Screen
   - (GET) Query all the users who have reviewed the game, including each rating.
+  ```java
+  ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+        query.include(Post.KEY_USER);
+        query.whereEqualTo(Post.KEY_GAMEID, getGameId());
+        query.setLimit(20);
+        query.addDescendingOrder(Post.KEY_CREATED_AT);
+
+        query.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> posts, ParseException e) {
+                if(e != null){
+                    // Issue querying reviews for game
+                    Log.e(TAG, "Issue with getting posts: " + e.toString());
+                    return;
+                }
+                // Query successful
+                adapter.clear();
+                adapter.addAll(posts);
+                adapter.notifyDataSetChanged();
+                // TODO: display retrieved reviews and ratings for current game...
+            }
+        });
+  ```
 - Comment Screen
   - (POST) Adding a comment on a review for a game.
   ```java
@@ -201,7 +224,7 @@ JoyFlick is an application that will allow users to view and post video game rev
 - Post Review Screen
   - (POST) Add a post for the current user.
   ```java
-  Review review = new Review();
+  Post review = new Post();
   review.setPost(post);
   review.setRating(rating);
   review.setUser(currentUser);
@@ -210,7 +233,7 @@ JoyFlick is an application that will allow users to view and post video game rev
     @Override
     public void done(ParseException e) {
       if(e != null){
-        // Issue with posting
+        // Issue with posting review
         Log.e(TAG, "Issue while saving: " + e.toString());
         return;
       }
@@ -220,8 +243,54 @@ JoyFlick is an application that will allow users to view and post video game rev
   });
   ```
 - Review Detail Screen
-  - (GET) Get the details of the comments made by a user
+  - (GET) Get the details of the comments made by a user.
+  ```java
+  ParseQuery<Post> query = ParseQuery.getQuery(Comment.class);
+        query.include(Comment.KEY_USER);
+        query.whereEqualTo(Comment.KEY_POSTID, getPostId());
+        query.setLimit(20);
+        query.addDescendingOrder(Comment.KEY_CREATED_AT);
+
+        query.findInBackground(new FindCallback<Comment>() {
+            @Override
+            public void done(List<Comment> comments, ParseException e) {
+                if(e != null){
+                    // Issue querying comments for review
+                    Log.e(TAG, "Issue with getting comments: " + e.toString());
+                    return;
+                }
+                // Query successful
+                adapter.clear();
+                adapter.addAll(comments);
+                adapter.notifyDataSetChanged();
+                // TODO: display retrieved comments for current review...
+            }
+        });
+  ```
 - Game Selection 
   - (GET) Query the name of the game from the api.
 - Profile Screen
   - (GET) Query all the posts made by the user.
+  ```java
+  ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+        query.include(Post.KEY_USER);
+        query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
+        query.setLimit(20);
+        query.addDescendingOrder(Post.KEY_CREATED_AT);
+
+        query.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> posts, ParseException e) {
+                if(e != null){
+                    // Issue querying reviews for user
+                    Log.e(TAG, "Issue with getting posts: " + e.toString());
+                    return;
+                }
+                // Query successful
+                adapter.clear();
+                adapter.addAll(posts);
+                adapter.notifyDataSetChanged();
+                // TODO: display retrieved reviews and ratings for current user...
+            }
+        });
+  ```
