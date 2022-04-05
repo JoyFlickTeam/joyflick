@@ -144,6 +144,29 @@ JoyFlick is an application that will allow users to view and post video game rev
   - (POST) send the username and password to the user table.
 - Home Screen
   - (GET) Query all games from api according to recent releases.
+  ```
+    AsyncHttpClient client = new AsyncHttpClient();
+
+    
+    client.get(API_BASE+"/"+apiTypeName+"/?api_key="+API_KEY, new TextHttpResponseHandler() {
+        @Override
+        public void onSuccess(int statusCode, Headers headers, String response) {
+                //responce is a raw string of xml, use convert to convert to json file
+                XmlToJson xmlToJson = new XmlToJson.Builder(response).build();
+                JsonObject responceJsonObject = xmlToJson.toJson();
+
+                JsonGameListExtractor jsonextracter = new JsonGameListExtractor(responceJsonObject);
+                gamelist = jsonextracter.extractGames; // global variable gamelist
+
+        }
+
+        @Override
+        public void onFailure(int statusCode, @Nullable Headers headers, String errorResponse, @Nullable Throwable throwable) {
+            Log.d("APIReciever", errorResponse);
+        }
+    });
+    
+  ```
 - Game Screen
   - (GET) Query all the users who have reviewed the game, including each rating.
 - Comment Screen
