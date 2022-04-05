@@ -156,7 +156,7 @@ JoyFlick is an application that will allow users to view and post video game rev
     client.get(API_BASE+"/"+apiTypeName+"/?api_key="+API_KEY, params, new TextHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Headers headers, String response) {
-                //responce is a raw string of xml, use convert to convert to json file
+                // Response is a raw string of xml, use convert to convert to json file
                 XmlToJson xmlToJson = new XmlToJson.Builder(response).build();
                 JsonObject responceJsonObject = xmlToJson.toJson();
                 
@@ -164,7 +164,7 @@ JoyFlick is an application that will allow users to view and post video game rev
                 gamelist = jsonextracter.extractGames; // global variable gamelist
                 
 
-                //Displaying games and updating the recyclerview and other fancy client stuff below this...
+                // TODO: displaying games and updating the recyclerview and other fancy client stuff below this, sorted by release date...
         }
 
         @Override
@@ -172,32 +172,31 @@ JoyFlick is an application that will allow users to view and post video game rev
             Log.d("APIReciever", errorResponse);
         }
     });
-    
   ```
 - Game Screen
   - (GET) Query all the users who have reviewed the game, including each rating.
   ```java
   ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        query.include(Post.KEY_USER);
-        query.whereEqualTo(Post.KEY_GAMEID, getGameId());
-        query.setLimit(20);
-        query.addDescendingOrder(Post.KEY_CREATED_AT);
+  query.include(Post.KEY_USER);
+  query.whereEqualTo(Post.KEY_GAMEID, getGameId());
+  query.setLimit(20);
+  query.addDescendingOrder(Post.KEY_CREATED_AT);
 
-        query.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> posts, ParseException e) {
-                if(e != null){
-                    // Issue querying reviews for game
-                    Log.e(TAG, "Issue with getting posts: " + e.toString());
-                    return;
-                }
-                // Query successful
-                adapter.clear();
-                adapter.addAll(posts);
-                adapter.notifyDataSetChanged();
-                // TODO: display retrieved reviews and ratings for current game...
-            }
-        });
+  query.findInBackground(new FindCallback<Post>() {
+      @Override
+      public void done(List<Post> posts, ParseException e) {
+          if(e != null){
+              // Issue querying reviews for game
+              Log.e(TAG, "Issue with getting posts: " + e.toString());
+              return;
+          }
+          // Query successful
+          adapter.clear();
+          adapter.addAll(posts);
+          adapter.notifyDataSetChanged();
+          // TODO: display retrieved reviews and ratings for current game...
+      }
+  });
   ```
 - Comment Screen
   - (POST) Adding a comment on a review for a game.
@@ -220,7 +219,58 @@ JoyFlick is an application that will allow users to view and post video game rev
   });
   ```
 - Search Screen
-  - (GET) Query the name of the game/users from the api. 
+  - (GET) Query the name of the game/users from the api.
+  ```java
+    // Query games based on name
+    AsyncHttpClient client = new AsyncHttpClient();
+    
+    RequestParams params = new RequestParams();
+    params.put("name", name.toString()); // query games based on name
+    params.put("limit", listOneBatchLimit.toString()); // listOneBatchLimit is a int value
+    params.put("offset", offsetToGet.toString()); // offsetToGet is a int value
+
+    
+    client.get(API_BASE+"/"+apiTypeName+"/?api_key="+API_KEY, params, new TextHttpResponseHandler() {
+        @Override
+        public void onSuccess(int statusCode, Headers headers, String response) {
+                // Response is a raw string of xml, use convert to convert to json file
+                XmlToJson xmlToJson = new XmlToJson.Builder(response).build();
+                JsonObject responceJsonObject = xmlToJson.toJson();
+                
+                JsonGameListExtractor jsonextracter = new JsonGameListExtractor(responceJsonObject);
+                gamelist = jsonextracter.extractGames; // global variable gamelist
+                
+                // TODO: displaying games and updating the recyclerview and other fancy client stuff below this, all according to the name...
+        }
+
+        @Override
+        public void onFailure(int statusCode, @Nullable Headers headers, String errorResponse, @Nullable Throwable throwable) {
+            Log.d("APIReciever", errorResponse);
+        }
+    });
+  // Query users based on name
+  ParseQuery<User> query = ParseQuery.getQuery(User.class);
+  query.include(User.KEY_USERNAME);
+  query.whereEqualTo(User.KEY_USERNAME, name.toString());
+  query.setLimit(20);
+  query.addDescendingOrder(User.KEY_CREATED_AT);
+
+  query.findInBackground(new FindCallback<User>() {
+      @Override
+      public void done(List<User> users, ParseException e) {
+          if(e != null){
+              // Issue querying users
+              Log.e(TAG, "Issue with getting users: " + e.toString());
+              return;
+          }
+          // Query successful
+          adapter.clear();
+          adapter.addAll(users);
+          adapter.notifyDataSetChanged();
+          // TODO: display user name and profile image based on name, under list of games...
+      }
+  });
+  ```
 - Post Review Screen
   - (POST) Add a post for the current user.
   ```java
@@ -246,51 +296,79 @@ JoyFlick is an application that will allow users to view and post video game rev
   - (GET) Get the details of the comments made by a user.
   ```java
   ParseQuery<Post> query = ParseQuery.getQuery(Comment.class);
-        query.include(Comment.KEY_USER);
-        query.whereEqualTo(Comment.KEY_POSTID, getPostId());
-        query.setLimit(20);
-        query.addDescendingOrder(Comment.KEY_CREATED_AT);
+  query.include(Comment.KEY_USER);
+  query.whereEqualTo(Comment.KEY_POSTID, getPostId());
+  query.setLimit(20);
+  query.addDescendingOrder(Comment.KEY_CREATED_AT);
 
-        query.findInBackground(new FindCallback<Comment>() {
-            @Override
-            public void done(List<Comment> comments, ParseException e) {
-                if(e != null){
-                    // Issue querying comments for review
-                    Log.e(TAG, "Issue with getting comments: " + e.toString());
-                    return;
-                }
-                // Query successful
-                adapter.clear();
-                adapter.addAll(comments);
-                adapter.notifyDataSetChanged();
-                // TODO: display retrieved comments for current review...
-            }
-        });
+  query.findInBackground(new FindCallback<Comment>() {
+      @Override
+      public void done(List<Comment> comments, ParseException e) {
+          if(e != null){
+              // Issue querying comments for review
+              Log.e(TAG, "Issue with getting comments: " + e.toString());
+              return;
+          }
+          // Query successful
+          adapter.clear();
+          adapter.addAll(comments);
+          adapter.notifyDataSetChanged();
+          // TODO: display retrieved comments for current review...
+      }
+  });
   ```
 - Game Selection 
   - (GET) Query the name of the game from the api.
+  ```java
+    AsyncHttpClient client = new AsyncHttpClient();
+    
+    RequestParams params = new RequestParams();
+    params.put("name", name.toString()); // query games based on name
+    params.put("limit", listOneBatchLimit.toString()); // listOneBatchLimit is a int value
+    params.put("offset", offsetToGet.toString()); // offsetToGet is a int value
+
+    
+    client.get(API_BASE+"/"+apiTypeName+"/?api_key="+API_KEY, params, new TextHttpResponseHandler() {
+        @Override
+        public void onSuccess(int statusCode, Headers headers, String response) {
+                // Response is a raw string of xml, use convert to convert to json file
+                XmlToJson xmlToJson = new XmlToJson.Builder(response).build();
+                JsonObject responceJsonObject = xmlToJson.toJson();
+                
+                JsonGameListExtractor jsonextracter = new JsonGameListExtractor(responceJsonObject);
+                gamelist = jsonextracter.extractGames; // global variable gamelist
+                
+                // TODO: displaying games and updating the recyclerview and other fancy client stuff below this, all according to the name...
+        }
+
+        @Override
+        public void onFailure(int statusCode, @Nullable Headers headers, String errorResponse, @Nullable Throwable throwable) {
+            Log.d("APIReciever", errorResponse);
+        }
+    });
+  ```
 - Profile Screen
   - (GET) Query all the posts made by the user.
   ```java
   ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        query.include(Post.KEY_USER);
-        query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
-        query.setLimit(20);
-        query.addDescendingOrder(Post.KEY_CREATED_AT);
+  query.include(Post.KEY_USER);
+  query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
+  query.setLimit(20);
+  query.addDescendingOrder(Post.KEY_CREATED_AT);
 
-        query.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> posts, ParseException e) {
-                if(e != null){
-                    // Issue querying reviews for user
-                    Log.e(TAG, "Issue with getting posts: " + e.toString());
-                    return;
-                }
-                // Query successful
-                adapter.clear();
-                adapter.addAll(posts);
-                adapter.notifyDataSetChanged();
-                // TODO: display retrieved reviews and ratings for current user...
-            }
-        });
+  query.findInBackground(new FindCallback<Post>() {
+      @Override
+      public void done(List<Post> posts, ParseException e) {
+          if(e != null){
+              // Issue querying reviews for user
+              Log.e(TAG, "Issue with getting posts: " + e.toString());
+              return;
+          }
+          // Query successful
+          adapter.clear();
+          adapter.addAll(posts);
+          adapter.notifyDataSetChanged();
+          // TODO: display retrieved reviews and ratings for current user...
+      }
+  });
   ```
