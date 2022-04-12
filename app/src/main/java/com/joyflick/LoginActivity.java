@@ -25,18 +25,16 @@ public class LoginActivity extends AppCompatActivity {
     private Button register;
     private ImageView rImage;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-/*
-        if(ParseUser.getCurrentUser() != null){
-            goMainActivity();
-        }
 
- */
-        //rImage = (ImageView) findViewById(R.id.rImage);
-       // rImage.setImageResource(R.drawable.user);
+
+        //rImage = (ImageView)findViewById(R.id.rImage);
+        //rImage.setImageResource(R.drawable.user);
+
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         Login = findViewById(R.id.rLogin);
@@ -71,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if(e != null){
                     Log.e(TAG, "Issue with loginUser" + e.toString());
-                    Toast.makeText(LoginActivity.this, "Issue with login user", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 // login is successful
