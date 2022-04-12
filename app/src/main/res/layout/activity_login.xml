@@ -11,11 +11,9 @@
 
     <EditText
         android:id="@+id/etUsername"
-        android:layout_width="361dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
         android:layout_marginTop="41dp"
-        android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
@@ -27,7 +25,7 @@
 
     <EditText
         android:id="@+id/etPassword"
-        android:layout_width="366dp"
+        android:layout_width="0dp"
         android:layout_height="49dp"
         android:ems="10"
         android:hint="Password"
@@ -37,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/etUsername" />
 
     <Button
-        android:id="@+id/Login"
+        android:id="@+id/rLogin"
         android:layout_width="116dp"
         android:layout_height="50dp"
         android:layout_marginStart="30dp"
@@ -62,7 +60,7 @@
         android:text="Register?"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Login"
+        app:layout_constraintStart_toEndOf="@+id/rLogin"
         app:layout_constraintTop_toBottomOf="@+id/etPassword"
         app:layout_constraintVertical_bias="0.0" />
 

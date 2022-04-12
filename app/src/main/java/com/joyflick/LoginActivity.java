@@ -3,11 +3,13 @@ package com.joyflick;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
@@ -21,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPassword;
     private Button Login;
     private Button register;
+    private ImageView rImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +35,14 @@ public class LoginActivity extends AppCompatActivity {
         }
 
  */
-
+        //rImage = (ImageView) findViewById(R.id.rImage);
+       // rImage.setImageResource(R.drawable.user);
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
-        Login = findViewById(R.id.Login);
+        Login = findViewById(R.id.rLogin);
         register = findViewById(R.id.register);
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser(username,password);
             }
         });
-       /*
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,8 +61,6 @@ public class LoginActivity extends AppCompatActivity {
                 goRegisterPage();
             }
         });
-
-        */
 
     }
 
@@ -78,14 +80,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    /*
+
     private void goRegisterPage() {
         Intent i = new Intent(this, RegisterActivity.class);
         startActivity(i);
         finish();
     }
 
-     */
 
     private void goMainActivity() {
         Intent i = new Intent(this, MainActivity.class);
