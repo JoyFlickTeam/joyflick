@@ -91,7 +91,7 @@
         android:background="#131D3E"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Signup to JotFlick"
+        android:text="Signup to JoyFlick"
         android:textAlignment="center"
         android:textColor="#FDF7F7"
         android:textSize="24sp" />
