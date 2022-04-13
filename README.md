@@ -405,3 +405,5 @@ JoyFlick is an application that will allow users to view and post video game rev
       }
   });
   ```
+
+<img src="https://i.imgur.com/mHoTmXI.gif" width=600>
