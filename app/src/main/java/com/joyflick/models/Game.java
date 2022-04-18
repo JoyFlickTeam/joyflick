@@ -30,6 +30,7 @@ public class Game {
         return games;
     }
 
+
     public String getPoster() {
         return Poster;
     }
