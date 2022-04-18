@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,19 +50,21 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
-        private ImageView rvPost;
+        LinearLayout container;
+        ImageView ivPoster;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            rvPost = itemView.findViewById(R.id.rvPosts);
+            ivPoster = itemView.findViewById(R.id.ivPoster);
+            container = itemView.findViewById(R.id.container);
         }
 
         public void bind(Game game) {
             String imageUrl;
 
             imageUrl = game.getPoster();
-            Glide.with(context).load(imageUrl);
+            Log.i(TAG, imageUrl);
+            Glide.with(context).load(imageUrl).into(ivPoster);
         }
     }
 }// end of the class

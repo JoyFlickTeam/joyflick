@@ -37,7 +37,13 @@ public class FeedFragment extends Fragment {
     protected GameAdapter adapter;
 
     public FeedFragment(){
+        // Empty public constructor required
+    }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_feed, container, false);
     }
 
     @Override
@@ -63,8 +69,9 @@ public class FeedFragment extends Fragment {
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
                     Log.i(TAG, "Results: " + results.toString());
-                    games = Game.fromJsonArray(results);
+                    games.addAll(Game.fromJsonArray(results));
                     Log.i(TAG, "Games" + games.size());
+                    adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit JSON exception", e);
                     e.printStackTrace();
