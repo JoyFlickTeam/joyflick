@@ -49,7 +49,7 @@ public class RAWGConnector {
 
 
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        String time_stamp_to_current = "2022-10-10";
+        String time_stamp_to_current = "1960-01-01,"+currentDate;
 
         parameters.put("dates",time_stamp_to_current);
 
