@@ -31,7 +31,9 @@ android {
 }
 
 dependencies {
-
+    def parceler_version = "1.1.12"
+    implementation "org.parceler:parceler-api:${parceler_version}"
+    annotationProcessor "org.parceler:parceler:${parceler_version}"
 
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
