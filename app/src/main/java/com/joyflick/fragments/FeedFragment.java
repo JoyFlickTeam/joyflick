@@ -52,7 +52,6 @@ public class FeedFragment extends Fragment {
         rvPost = view.findViewById(R.id.rvPosts);
         games = new ArrayList<>();
         adapter = new GameAdapter(getContext(), games);
-
         rvPost.setAdapter(adapter);
         LinearLayoutManager LinearLayoutManager = new LinearLayoutManager(getContext());
         rvPost.setLayoutManager(LinearLayoutManager);
