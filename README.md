@@ -405,5 +405,7 @@ JoyFlick is an application that will allow users to view and post video game rev
       }
   });
   ```
-
+## Sprint 2  
+<img src="https://i.imgur.com/7mb1iwE.gif" width=600>
+## Sprint 1
 <img src="https://i.imgur.com/mHoTmXI.gif" width=600>
