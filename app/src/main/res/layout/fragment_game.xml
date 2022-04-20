@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivGamePoster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="18dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvGameName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Game detail fragment"
+        android:layout_toRightOf="@+id/ivGamePoster"
+        tools:layout_editor_absoluteX="208dp"
+        tools:layout_editor_absoluteY="52dp" />
+
+</RelativeLayout>
