@@ -21,6 +21,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
@@ -74,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         //temporary check for api. remove it afterwards.
         JSONObject handler;
         try {
-            handler = rawg.getJson();
+            handler = rawg.getGamesJson();
             Log.i("TAG",handler.toString());
         } catch (InterruptedException e) {
             e.printStackTrace();
