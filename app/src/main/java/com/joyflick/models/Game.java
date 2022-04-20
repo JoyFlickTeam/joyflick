@@ -5,16 +5,22 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Parcel
 public class Game {
     String Poster;
     String title;
     String release;
     double rating;
     int gameId;
+
+    // Empty constructor for Parceler Library
+    public Game(){
+    }
 
     public Game(JSONObject jsonObject) throws JSONException {
         Poster = jsonObject.getString("background_image");
