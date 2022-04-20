@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <SearchView
+        android:id="@+id/idSearch"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:background="@color/light_background"
+        android:inputType="text"
+        android:queryHint="Search Games" />
+
+    <TextView
+        android:id="@+id/idGames"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:layout_below="@+id/idSearch"
+        android:layout_marginTop="0dp"
+        android:background="@color/nav_color"
+        android:text="Games"
+        android:textAlignment="inherit"
+        app:autoSizeTextType="uniform" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/idResult"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/idGames"
+        android:layout_marginTop="1dp" />
+</RelativeLayout>
