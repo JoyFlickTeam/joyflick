@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         Login = findViewById(R.id.rLogin);
         register = findViewById(R.id.register);
 
-        //getSupportActionBar().hide();
+        getSupportActionBar().hide();
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override

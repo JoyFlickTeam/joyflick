@@ -1,24 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:background="#131D3E"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/ivProfileImage"
+        android:layout_width="256px"
+        android:layout_height="256px"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="20px"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvProfileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="48px"
+        android:layout_marginTop="70px"
+        android:layout_toRightOf="@id/ivProfileImage"
+        android:textColor="#FFFFFF"
+        android:textSize="32dp"
+        tools:text="UserName" />
 
     <Button
         android:id="@+id/btnProfilePhoto"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_below="@id/ivProfileImage"
         android:layout_marginTop="5dp"
-        android:text="Change Profile Photo"
-        android:backgroundTint="#808080" />
+        android:backgroundTint="#808080"
+        android:text="Change Profile Photo" />
 
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_below="@id/btnProfilePhoto"
         android:layout_marginBottom="10dp"
         android:backgroundTint="#808080"
         android:text="Log Out" />
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/idReviews"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:layout_below="@id/btnLogout"
+        android:layout_marginTop="0dp"
+        android:background="@color/nav_color"
+        android:text="Reviews"
+        android:textColor="@color/black"
+        android:textAlignment="inherit"
+        app:autoSizeTextType="uniform" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/idUserReviews"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/idReviews"
+        android:layout_marginTop="1dp" />
+</RelativeLayout>

@@ -15,6 +15,8 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        getSupportActionBar().hide();
+
         // Get the intent, verifty the action and get the query
         Intent I = getIntent();
         if(Intent.ACTION_SEARCH.equals(I.getAction())) {

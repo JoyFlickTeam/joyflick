@@ -80,20 +80,17 @@
         android:backgroundTint="#C4C4C4"
         android:text="Login?" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName3"
+    <TextView
+        android:id="@+id/tvSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rImage"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="106dp"
         android:layout_marginTop="9dp"
-        android:layout_marginEnd="95dp"
         android:background="#131D3E"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Signup to JoyFlick"
+        android:text="Sign up to JoyFlick"
         android:textAlignment="center"
         android:textColor="#FDF7F7"
         android:textSize="24sp" />

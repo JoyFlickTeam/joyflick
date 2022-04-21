@@ -101,15 +101,14 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
+    <TextView
+        android:id="@+id/tvLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#131D3E"
         android:ems="10"
-        android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:text="Login to joyFlick"
+        android:text="Login to JoyFlick"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="24sp"

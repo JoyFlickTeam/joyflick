@@ -31,6 +31,8 @@ public class RegisterActivity extends AppCompatActivity {
         rLogin = findViewById(R.id.rLogin);
         rSignup = findViewById(R.id.rSignup);
 
+        getSupportActionBar().hide();
+
         rLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
