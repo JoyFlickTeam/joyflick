@@ -28,7 +28,7 @@
         tools:text="Game detail fragment" />
 
     <RatingBar
-        android:id="@+id/rbGameRating"
+        android:id="@+id/rbGameAvgRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvGameName"
@@ -39,10 +39,16 @@
         android:id="@+id/ibAddReview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rbGameRating"
+        android:layout_below="@id/rbGameAvgRating"
         android:layout_marginLeft="80dp"
         android:layout_toRightOf="@id/ivGamePoster"
         android:background="@color/nav_color"
         app:srcCompat="@drawable/post" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvGameRatings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ivGamePoster" />
 
 </RelativeLayout>

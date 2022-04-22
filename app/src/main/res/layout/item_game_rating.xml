@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/reviewContainer"
+    android:background="@color/background"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/ivRatingUserPicture"
+        android:layout_width="256px"
+        android:layout_height="256px"
+        tools:layout_editor_absoluteX="18dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvRatingUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"
+        tools:text="UserName"
+        android:layout_toRightOf="@id/ivRatingUserPicture" />
+
+    <RatingBar
+        android:id="@+id/rbRatingGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvRatingUserName"
+        android:layout_toRightOf="@id/ivRatingUserPicture"
+        android:isIndicator="true" />
+
+</RelativeLayout>
