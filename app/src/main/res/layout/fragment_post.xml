@@ -12,15 +12,17 @@
         android:layout_height="128dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/tvReviewGameName"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
+        android:maxLines="2"
         android:textColor="#FFFFFF"
-        android:textSize="32sp"
+        android:textSize="28sp"
+        android:textAlignment="center"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/ivReviewGamePoster"
         tools:text="Elden Ring"
@@ -31,9 +33,11 @@
         android:id="@+id/rbReviewRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tvReviewGameName"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:layout_below="@id/tvReviewGameName" />
+        android:numStars="5"
+        android:stepSize="0.5" />
 
     <EditText
         android:id="@+id/etReview"
@@ -47,7 +51,7 @@
         android:layout_below="@id/rbReviewRating" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/ibReviewPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/etReview"

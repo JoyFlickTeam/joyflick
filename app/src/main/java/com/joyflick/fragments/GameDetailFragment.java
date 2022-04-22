@@ -5,11 +5,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -35,6 +37,7 @@ public class GameDetailFragment extends Fragment {
     private ImageView ivPoster;
     private TextView tvName;
     private String gameId;
+    private ImageButton ibAddReview;
 
     public GameDetailFragment(){
         // Empty public constructor required
@@ -53,7 +56,21 @@ public class GameDetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ivPoster = view.findViewById(R.id.ivGamePoster);
         tvName = view.findViewById(R.id.tvGameName);
+        ibAddReview = view.findViewById(R.id.ibAddReview);
         queryGame();
+
+        ibAddReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to post fragment, passing the current game id
+                Bundle bundle = new Bundle();
+                bundle.putString("gId", gameId);
+                PostFragment pFragment = new PostFragment();
+                pFragment.setArguments(bundle);
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, pFragment).addToBackStack(null).commit();
+            }
+        });
     }// end of the onView Created
 
     private void queryGame() {

@@ -32,7 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvGameName"
-        android:layout_toRightOf="@id/ivGamePoster" />
+        android:layout_toRightOf="@id/ivGamePoster"
+        android:isIndicator="true" />
 
     <ImageButton
         android:id="@+id/ibAddReview"
