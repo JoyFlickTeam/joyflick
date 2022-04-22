@@ -21,7 +21,7 @@ public class SearchActivity extends AppCompatActivity {
         // Determine if search should include users
         Bundle bundle = getIntent().getExtras();
         boolean searchUsers = true;
-        if(bundle != null){
+        if(bundle != null && !bundle.getBoolean("searchUsers")){
             searchUsers = false;
         }
         Log.i(TAG, "Search users: " + searchUsers);
