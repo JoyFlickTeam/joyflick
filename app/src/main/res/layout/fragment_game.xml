@@ -2,23 +2,46 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#131D3E"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/ivGamePoster"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="512px"
+        android:layout_height="640px"
         tools:layout_editor_absoluteX="18dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/tvGameName"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:maxLines="4"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/ivGamePoster"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="24sp"
+        tools:text="Game detail fragment" />
+
+    <RatingBar
+        android:id="@+id/rbGameRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Game detail fragment"
-        android:layout_toRightOf="@+id/ivGamePoster"
-        tools:layout_editor_absoluteX="208dp"
-        tools:layout_editor_absoluteY="52dp" />
+        android:layout_below="@id/tvGameName"
+        android:layout_toRightOf="@id/ivGamePoster" />
+
+    <ImageButton
+        android:id="@+id/ibAddReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rbGameRating"
+        android:layout_marginLeft="80dp"
+        android:layout_toRightOf="@id/ivGamePoster"
+        android:background="@color/nav_color"
+        app:srcCompat="@drawable/post" />
 
 </RelativeLayout>

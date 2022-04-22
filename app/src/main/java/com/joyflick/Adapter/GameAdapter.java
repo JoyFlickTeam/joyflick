@@ -1,6 +1,7 @@
 package com.joyflick.Adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.joyflick.R;
 import com.joyflick.fragments.GameDetailFragment;
 import com.joyflick.models.Game;
@@ -73,16 +76,20 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
             gameTitle.setText(game.getTitle());
             imageUrl = game.getPoster();
             Log.i(TAG, imageUrl);
-            Glide.with(context).load(imageUrl).into(ivPoster);
+            Glide.with(context).load(imageUrl).centerCrop().placeholder(R.drawable.logo1).into(ivPoster);
 
             // Click listener for row
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Navigate to game detail fragment
-                    Pair<View, String> pPoster = Pair.create((View) ivPoster, "iPoster");
-                    Pair<View,String> pTitle = Pair.create((View) gameTitle, "tTitle");
-                    Toast.makeText(v.getContext(), game.getTitle(), Toast.LENGTH_SHORT).show();
+                    // Navigate to game detail fragment, passing the game's ID
+                    Bundle bundle = new Bundle();
+                    bundle.putString("gId", String.valueOf(game.getGameId()));
+                    GameDetailFragment gdFragment = new GameDetailFragment();
+                    gdFragment.setArguments(bundle);
+                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, gdFragment).addToBackStack(null).commit();
+                    // Toast.makeText(v.getContext(), game.getTitle(), Toast.LENGTH_SHORT).show();
                 }
             });
         }

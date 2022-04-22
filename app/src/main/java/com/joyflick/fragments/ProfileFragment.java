@@ -108,8 +108,11 @@ public class ProfileFragment extends Fragment {
                 if(e == null){
                     Log.i(TAG, "Profile photo update success");
                     Toast.makeText(getContext(), "Profile photo has been updated.", Toast.LENGTH_SHORT).show();
+                    // Update profile picture displayed
+                    ParseFile profilePicture = currentUser.getParseFile("profilePicture");
+                    Glide.with(getContext()).load(profilePicture.getUrl()).placeholder(R.drawable.logo1).into(ivProfileImage);
                 } else {
-                    Log.e(TAG, "Profile photo update failure");
+                    Log.e(TAG, "Profile photo update failure: " + e);
                     // Toast.makeText(getContext(), "Error updating profile photo: " + e.toString(), Toast.LENGTH_SHORT).show();
                 }
             });
