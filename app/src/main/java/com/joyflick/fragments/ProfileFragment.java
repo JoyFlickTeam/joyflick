@@ -20,15 +20,24 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.joyflick.Adapter.ProfilePostAdapter;
 import com.joyflick.LoginActivity;
 import com.joyflick.R;
+import com.joyflick.models.Post;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
@@ -38,6 +47,10 @@ public class ProfileFragment extends Fragment {
     private TextView tvProfileName;
     private Button btnLogout;
     private Button btnProfilePhoto;
+    private TextView tvNoUserReviews;
+    private RecyclerView rvUserReviews;
+    protected ProfilePostAdapter adapter;
+    protected List<Post> posts;
 
 
     @Override
@@ -55,6 +68,16 @@ public class ProfileFragment extends Fragment {
         ivProfileImage = view.findViewById(R.id.ivProfileImage);
         btnLogout = view.findViewById(R.id.btnLogout);
         btnProfilePhoto = view.findViewById(R.id.btnProfilePhoto);
+        rvUserReviews = view.findViewById(R.id.rvUserReviews);
+        tvNoUserReviews = view.findViewById(R.id.tvNoUserReviews);
+        posts = new ArrayList<>();
+        adapter = new ProfilePostAdapter(getContext(), posts);
+        rvUserReviews.setAdapter(adapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager((getContext()));
+        rvUserReviews.setLayoutManager(linearLayoutManager);
+        queryPosts();
+
+        // Logout
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,6 +88,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        // Change profile picture
         btnProfilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +108,37 @@ public class ProfileFragment extends Fragment {
             Glide.with(getContext()).load(R.drawable.logo1).into(ivProfileImage);
         }
         tvProfileName.setText(currentUser.getString("username"));
+    }
+
+    protected void queryPosts(){
+        ParseQuery<Post> query= ParseQuery.getQuery(Post.class);
+        query.include(Post.KEY_USER);
+        query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
+        query.addDescendingOrder(Post.KEY_CREATED_AT);
+        query.setLimit(5);
+        Log.i(TAG, "Querying posts for " + Post.KEY_USER + " equal to " + ParseUser.getCurrentUser().getObjectId());
+
+        query.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> posts, ParseException e) {
+                if(e != null){
+                    Log.e(TAG, "Issue with getting ratings for a game" + e);
+                    return;
+                }
+                adapter.clear();
+
+                adapter.addAll(posts);
+                adapter.notifyDataSetChanged();
+
+                if(adapter.getItemCount() == 0){
+                    Log.i(TAG, "There are no reviews made by the selected user");
+                    tvNoUserReviews.setVisibility(View.VISIBLE);
+                }
+                else{
+                    tvNoUserReviews.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
     }
 
     // Trigger gallery selection for a photo

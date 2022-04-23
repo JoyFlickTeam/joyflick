@@ -57,8 +57,7 @@
         android:textSize="30sp"
         android:visibility="invisible"
         android:text="There are currently no reviews for this game.\n Be the first to post one!"
-        android:layout_below="@id/ivGamePoster"
-        />
+        android:layout_below="@id/ivGamePoster" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvGameRatings"

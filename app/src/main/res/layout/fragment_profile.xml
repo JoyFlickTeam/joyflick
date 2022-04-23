@@ -56,8 +56,23 @@
         android:textAlignment="inherit"
         app:autoSizeTextType="uniform" />
 
+    <TextView
+        android:id="@+id/tvNoUserReviews"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:visibility="invisible"
+        android:text="This user has not posted any game reviews."
+        android:layout_below="@id/idReviews"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/idUserReviews"
+        android:id="@+id/rvUserReviews"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/idReviews"
