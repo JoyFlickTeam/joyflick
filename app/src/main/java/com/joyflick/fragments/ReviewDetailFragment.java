@@ -43,6 +43,7 @@ public class ReviewDetailFragment extends Fragment {
     private RatingBar rbDetailRating;
     private TextView tvReview;
     private Button btnAddComment;
+    private Button btnViewComments;
     private String objectId;
 
     public ReviewDetailFragment(){
@@ -67,6 +68,7 @@ public class ReviewDetailFragment extends Fragment {
         rbDetailRating = view.findViewById(R.id.rbDetailRating);
         tvReview = view.findViewById(R.id.tvReview);
         btnAddComment = view.findViewById(R.id.btnAddComment);
+        btnViewComments = view.findViewById(R.id.btnViewComments);
         queryPost();
     }
 

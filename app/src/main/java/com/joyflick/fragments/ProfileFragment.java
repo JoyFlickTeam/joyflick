@@ -167,7 +167,7 @@ public class ProfileFragment extends Fragment {
         query.include(Post.KEY_USER);
         query.whereEqualTo(Post.KEY_USER, profileUser);
         query.addDescendingOrder(Post.KEY_CREATED_AT);
-        query.setLimit(5);
+        query.setLimit(10);
         Log.i(TAG, "Querying posts for " + Post.KEY_USER + " equal to " + profileUser.getObjectId());
 
         query.findInBackground(new FindCallback<Post>() {

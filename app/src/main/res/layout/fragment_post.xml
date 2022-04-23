@@ -36,6 +36,8 @@
         android:layout_below="@id/tvReviewGameName"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
+        android:progressTint="@color/nav_color"
+        android:secondaryProgressTint="@color/nav_color"
         android:numStars="5"
         android:stepSize="0.5" />
 

@@ -30,6 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvRatingUserName"
         android:layout_toRightOf="@id/ivRatingUserPicture"
+        android:progressTint="@color/nav_color"
+        android:secondaryProgressTint="@color/nav_color"
         android:isIndicator="true" />
 
 </RelativeLayout>

@@ -127,7 +127,7 @@ public class GameDetailFragment extends Fragment {
         query.include(Post.KEY_USER);
         query.whereEqualTo(Post.KEY_GAMEID, gameId);
         query.addDescendingOrder(Post.KEY_CREATED_AT);
-        query.setLimit(5);
+        query.setLimit(10);
         Log.i(TAG, "Querying posts for " + Post.KEY_GAMEID + " equal to " + gameId);
 
         query.findInBackground(new FindCallback<Post>() {
