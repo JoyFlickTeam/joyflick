@@ -49,15 +49,27 @@
         android:maxLines="2"
         tools:text="UserName" />
 
+    <RatingBar
+        android:id="@+id/rbDetailRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivDetailUserPicture"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:stepSize="0.5" />
+
     <TextView
         android:id="@+id/tvReview"
         android:layout_width="356dp"
         android:layout_height="256dp"
         android:background="#C4C4C4"
+        android:textSize="22sp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:gravity="top"
-        android:layout_below="@id/ivDetailUserPicture"
+        android:layout_below="@id/rbDetailRating"
         tools:text="Wow this game was not good!" />
 
     <Button

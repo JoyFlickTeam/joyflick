@@ -86,9 +86,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                 public void onClick(View v) {
                     // Pass review info to detailed review fragment
                     Bundle bundle = new Bundle();
-                    // pass object id
-
+                    bundle.putString("oId", post.getObjectId());
+                    Log.i(TAG, "Sending oId " + post.getObjectId() + " to ReviewDetailFragment");
                     ReviewDetailFragment rdFragment = new ReviewDetailFragment();
+                    rdFragment.setArguments(bundle);
                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, rdFragment).addToBackStack(null).commit();
                 }
