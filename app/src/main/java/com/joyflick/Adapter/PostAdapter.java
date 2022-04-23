@@ -70,15 +70,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             rbRatingGame = itemView.findViewById(R.id.rbRatingGame);
         }
         public void bind(Post post) {
-            //tvRatingUserName.setText(post.getUser().getUsername());
+            tvRatingUserName.setText(post.getUser().getUsername());
             rbRatingGame.setRating(Float.valueOf(post.getRating().toString()));
-            /*ParseFile profilePicture = post.getUser().getParseFile("profilePicture");
+            ParseFile profilePicture = post.getUser().getParseFile("profilePicture");
             if(profilePicture != null){
                 Glide.with(context).load(profilePicture.getUrl()).placeholder(R.drawable.logo1).centerCrop().into(ivRatingUserPicture);
             }
             else{
                 Glide.with(context).load(R.drawable.logo1).centerCrop().into(ivRatingUserPicture);
-            }*/
+            }
 
             // Go to detailed review screen
             container.setOnClickListener(new View.OnClickListener() {

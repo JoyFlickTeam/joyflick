@@ -149,9 +149,7 @@ public class PostFragment extends Fragment {
         post.setPost(review);
         post.setRating(rating);
         post.setGameId(idGame);
-        ParseRelation uRel = post.getRelation("user");
-        uRel.add(currentUser);
-        post.setUser(uRel);
+        post.setUser(currentUser);
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

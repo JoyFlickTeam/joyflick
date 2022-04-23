@@ -48,6 +48,7 @@ public class GameDetailFragment extends Fragment {
     private RatingBar rbGameAvgRating;
     private ImageButton ibAddReview;
     private RecyclerView rvGameRatings;
+    private TextView tvNoReviews;
     private float avgRating;
     protected PostAdapter adapter;
     protected List<Post> ratings;
@@ -72,6 +73,7 @@ public class GameDetailFragment extends Fragment {
         ibAddReview = view.findViewById(R.id.ibAddReview);
         rbGameAvgRating = view.findViewById(R.id.rbGameAvgRating);
         rvGameRatings = view.findViewById(R.id.rvGameRatings);
+        tvNoReviews = view.findViewById(R.id.tvNoReviews);
         ratings = new ArrayList<>();
         adapter = new PostAdapter(getContext(), ratings);
         rvGameRatings.setAdapter(adapter);
@@ -80,6 +82,7 @@ public class GameDetailFragment extends Fragment {
         queryGame();
         queryPosts();
 
+        // Add a review...
         ibAddReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,6 +148,14 @@ public class GameDetailFragment extends Fragment {
 
                 adapter.addAll(posts);
                 adapter.notifyDataSetChanged();
+
+                if(adapter.getItemCount() == 0){
+                    Log.i(TAG, "There are no reviews for the selected game");
+                    tvNoReviews.setVisibility(View.VISIBLE);
+                }
+                else{
+                    tvNoReviews.setVisibility(View.INVISIBLE);
+                }
             }
         });
     }

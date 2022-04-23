@@ -42,7 +42,7 @@ public class Post extends ParseObject {
         return getParseUser(KEY_USER);
     }
 
-    public void setUser(ParseRelation parseUser){
+    public void setUser(ParseUser parseUser){
         put(KEY_USER, parseUser);
     }
 }
