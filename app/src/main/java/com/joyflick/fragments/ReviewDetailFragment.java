@@ -102,6 +102,18 @@ public class ReviewDetailFragment extends Fragment {
                 tvReview.setText(post.getPost());
                 // Display game info
                 queryGame(post.getGameId());
+                // Navigate to user's profile page
+                ivDetailUserPicture.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("uId", postUser.getObjectId());
+                        ProfileFragment pFragment = new ProfileFragment();
+                        pFragment.setArguments(bundle);
+                        AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, pFragment).addToBackStack(null).commit();
+                    }
+                });
             }
         });
     }
@@ -118,6 +130,19 @@ public class ReviewDetailFragment extends Fragment {
                     tvDetailGameName.setText(jsonObject.get("name").toString());
                     String imageUrl = jsonObject.get("background_image").toString();
                     Glide.with(getView()).load(imageUrl).centerCrop().placeholder(R.drawable.logo1).into(ivDetailGamePicture);
+
+                    // Go to GameDetailFragment for queried game when game image is pressed
+                    ivDetailGamePicture.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("gId", gameId);
+                            GameDetailFragment gdFragment = new GameDetailFragment();
+                            gdFragment.setArguments(bundle);
+                            AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, gdFragment).addToBackStack(null).commit();
+                        }
+                    });
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit JSON exception", e);
                     e.printStackTrace();

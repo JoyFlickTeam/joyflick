@@ -159,4 +159,16 @@ public class GameDetailFragment extends Fragment {
             }
         });
     }
+
+    // For hiding toolbar
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+    }
 }

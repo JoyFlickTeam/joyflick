@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,6 +50,7 @@ public class ProfileFragment extends Fragment {
     private Button btnProfilePhoto;
     private TextView tvNoUserReviews;
     private RecyclerView rvUserReviews;
+    private String userId;
     protected ProfilePostAdapter adapter;
     protected List<Post> posts;
 
@@ -57,6 +59,13 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        if(getArguments() != null) {
+            userId = getArguments().getString("uId");
+            Log.i(TAG, userId);
+        }
+        else{
+            userId = ParseUser.getCurrentUser().getObjectId();
+        }
         return inflater.inflate(R.layout.fragment_profile, container, false);
 
     }
@@ -75,7 +84,6 @@ public class ProfileFragment extends Fragment {
         rvUserReviews.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager((getContext()));
         rvUserReviews.setLayoutManager(linearLayoutManager);
-        queryPosts();
 
         // Logout
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -96,27 +104,71 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        // Load profile image
-        ParseFile profilePicture = currentUser.getParseFile("profilePicture");
-        if(profilePicture != null){
-            Log.i(TAG, "Attempting to load profile picture");
-            Glide.with(getContext()).load(profilePicture.getUrl()).into(ivProfileImage);
+        if(!userId.equals(ParseUser.getCurrentUser().getObjectId())){
+            // Viewing someone else's profile
+            queryUser();
+            btnLogout.setVisibility(View.GONE);
+            btnProfilePhoto.setVisibility(View.GONE);
         }
         else{
-            Log.i(TAG, "Using default profile picture");
-            Glide.with(getContext()).load(R.drawable.logo1).into(ivProfileImage);
+            // Viewing logged in user's profile details
+            ParseUser currentUser = ParseUser.getCurrentUser();
+            btnLogout.setVisibility(View.VISIBLE);
+            btnProfilePhoto.setVisibility(View.VISIBLE);
+            // Load profile image
+            ParseFile profilePicture = currentUser.getParseFile("profilePicture");
+            if(profilePicture != null){
+                Log.i(TAG, "Attempting to load profile picture");
+                Glide.with(getContext()).load(profilePicture.getUrl()).into(ivProfileImage);
+            }
+            else{
+                Log.i(TAG, "Using default profile picture");
+                Glide.with(getContext()).load(R.drawable.logo1).into(ivProfileImage);
+            }
+            tvProfileName.setText(currentUser.getString("username"));
+
+            queryPosts(currentUser);
         }
-        tvProfileName.setText(currentUser.getString("username"));
     }
 
-    protected void queryPosts(){
+    protected void queryUser(){
+        ParseQuery<ParseUser> query= ParseUser.getQuery();
+        query.whereEqualTo("objectId", userId);
+        query.setLimit(1);
+        Log.i(TAG, "Querying users for " + Post.KEY_USER + " equal to " + userId);
+
+        query.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> users, ParseException e) {
+                if(e != null){
+                    Log.e(TAG, "Issue with getting user" + e);
+                    return;
+                }
+                // There should be only one user
+                ParseUser profileUser = users.get(0);
+                // Show user's profile picture, name, and posts
+                ParseFile profilePicture = profileUser.getParseFile("profilePicture");
+                if(profilePicture != null){
+                    Log.i(TAG, "Attempting to load profile picture");
+                    Glide.with(getContext()).load(profilePicture.getUrl()).into(ivProfileImage);
+                }
+                else{
+                    Log.i(TAG, "Using default profile picture");
+                    Glide.with(getContext()).load(R.drawable.logo1).into(ivProfileImage);
+                }
+                tvProfileName.setText(profileUser.getString("username"));
+                queryPosts(profileUser);
+            }
+        });
+    }
+
+    protected void queryPosts(ParseUser profileUser){
         ParseQuery<Post> query= ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
-        query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
+        query.whereEqualTo(Post.KEY_USER, profileUser);
         query.addDescendingOrder(Post.KEY_CREATED_AT);
         query.setLimit(5);
-        Log.i(TAG, "Querying posts for " + Post.KEY_USER + " equal to " + ParseUser.getCurrentUser().getObjectId());
+        Log.i(TAG, "Querying posts for " + Post.KEY_USER + " equal to " + profileUser.getObjectId());
 
         query.findInBackground(new FindCallback<Post>() {
             @Override
@@ -200,4 +252,18 @@ public class ProfileFragment extends Fragment {
         return new File(mediaStorageDir.getPath() + File.separator + fileName);
     }
 
+    // For hiding toolbar
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(!userId.equals(ParseUser.getCurrentUser().getObjectId())){
+            // Viewing someone else's profile, hide toolbar
+            ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        }
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+    }
 }
