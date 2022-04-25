@@ -2,6 +2,7 @@ package com.joyflick;
 
 import android.app.Application;
 
+import com.joyflick.models.Comments;
 import com.joyflick.models.Post;
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -13,6 +14,7 @@ public class ParseApplication extends Application {
         super.onCreate();
         // Register Parse model
         ParseObject.registerSubclass(Post.class);
+        ParseObject.registerSubclass(Comments.class);
 
         // Initialize Parse SDK
         Parse.initialize(new Parse.Configuration.Builder(this)

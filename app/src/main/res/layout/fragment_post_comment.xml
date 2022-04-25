@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#131D3E"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivCommentProfileImage"
+        android:layout_width="384px"
+        android:layout_height="384px"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/ivCommenterGameImage"
+        android:layout_width="128px"
+        android:layout_height="128px"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@id/ivCommentProfileImage"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvCommenterGameName"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/ivCommenterGameImage"
+        android:maxLines="2"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        tools:text="Game name" />
+
+    <TextView
+        android:id="@+id/tvCommenterReview"
+        android:layout_width="250dp"
+        android:layout_height="88dp"
+        android:layout_below="@id/ivCommenterGameImage"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@id/ivCommentProfileImage"
+        android:background="@color/nav_color"
+        android:gravity="top"
+        android:maxLines="4"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        tools:text="Wow this game was not good!" />
+
+    <EditText
+        android:id="@+id/etComment"
+        android:layout_width="356dp"
+        android:layout_height="300dp"
+        android:background="#C4C4C4"
+        android:hint="Add a comment..."
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:textSize="22sp"
+        android:gravity="top"
+        android:layout_below="@id/ivCommentProfileImage" />
+
+    <ImageButton
+        android:id="@+id/ibCommentPost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etComment"
+        android:layout_alignRight="@id/etComment"
+        android:background="@color/nav_color"
+        app:srcCompat="@drawable/check" />
+</RelativeLayout>

@@ -5,10 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,12 +20,14 @@ import com.bumptech.glide.Glide;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.joyflick.R;
+import com.joyflick.models.Comments;
 import com.joyflick.models.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,61 +36,79 @@ import java.util.List;
 
 import okhttp3.Headers;
 
-public class ReviewDetailFragment extends Fragment {
-    public static final String TAG = "ReviewDetailFragment";
+public class PostCommentFragment extends Fragment {
+    public static final String TAG = "PostCommentFragment";
     public static final String GAME = "https://api.rawg.io/api/games/%s?key=8abe1aadb6a6459db418c8ac8239aa05";
-    private ImageView ivDetailGamePicture;
-    private TextView tvDetailGameName;
-    private ImageView ivDetailUserPicture;
-    private TextView tvDetailUserName;
-    private RatingBar rbDetailRating;
-    private TextView tvReview;
-    private Button btnAddComment;
-    private Button btnViewComments;
+    private ImageView ivCommentProfileImage;
+    private ImageView ivCommenterGameImage;
+    private TextView tvCommenterGameName;
+    private TextView tvCommenterReview;
+    private EditText etComment;
+    private ImageButton ibCommentPost;
     private String objectId;
 
-    public ReviewDetailFragment(){
-        // Empty public constructor required
+    public PostCommentFragment(){
+        // Empty constructor required
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        // Get review id from ReviewDetailFragment
         objectId = getArguments().getString("oId");
         Log.i(TAG, objectId);
-        return inflater.inflate(R.layout.fragment_review, container, false);
+        return inflater.inflate(R.layout.fragment_post_comment, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ivDetailGamePicture = view.findViewById(R.id.ivDetailGamePicture);
-        tvDetailGameName = view.findViewById(R.id.tvDetailGameName);
-        ivDetailUserPicture = view.findViewById(R.id.ivDetailUserPicture);
-        tvDetailUserName = view.findViewById(R.id.tvDetailUserName);
-        rbDetailRating = view.findViewById(R.id.rbDetailRating);
-        tvReview = view.findViewById(R.id.tvReview);
-        btnAddComment = view.findViewById(R.id.btnAddComment);
-        btnViewComments = view.findViewById(R.id.btnViewComments);
+        ivCommentProfileImage = view.findViewById(R.id.ivCommentProfileImage);
+        ivCommenterGameImage = view.findViewById(R.id.ivCommenterGameImage);
+        tvCommenterGameName = view.findViewById(R.id.tvCommenterGameName);
+        tvCommenterReview = view.findViewById(R.id.tvCommenterReview);
+        etComment = view.findViewById(R.id.etComment);
+        ibCommentPost = view.findViewById(R.id.ibCommentPost);
         queryPost();
 
-        btnAddComment.setOnClickListener(new View.OnClickListener() {
+
+        // Post comment when post button is pressed
+        ibCommentPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Pass review info to PostCommentFragment
-                Bundle bundle = new Bundle();
-                bundle.putString("oId", objectId);
-                Log.i(TAG, "Sending oId " + objectId + " to PostCommentFragment");
-                PostCommentFragment pcFragment = new PostCommentFragment();
-                pcFragment.setArguments(bundle);
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, pcFragment).addToBackStack(null).commit();
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                String comment = etComment.getText().toString();
+                if(comment.isEmpty()){
+                    Toast.makeText(getContext(), "Your comment must have text", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                saveComment(currentUser, comment, objectId);
             }
         });
     }
 
-    protected void queryPost(){
-        ParseQuery<Post> query= ParseQuery.getQuery(Post.class);
+    private void saveComment(ParseUser currentUser, String commentBody, String postId){
+        Comments comment = new Comments();
+        comment.setComment(commentBody);
+        comment.setPostId(postId);
+        comment.setUser(currentUser);
+        comment.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e != null){
+                    Log.e(TAG, "Issue while saving: " + e);
+                    Toast.makeText(getContext(), "Error while saving comment", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Log.i(TAG, "Comment saved successfully!");
+                Toast.makeText(getContext(), "Your comment has been saved", Toast.LENGTH_SHORT).show();
+                etComment.setText("");
+            }
+        });
+    }
+
+    protected void queryPost() {
+        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         query.whereEqualTo(Post.KEY_OBJECTID, objectId);
         query.setLimit(1);
@@ -97,7 +118,7 @@ public class ReviewDetailFragment extends Fragment {
         query.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> objects, ParseException e) {
-                if(e != null){
+                if (e != null) {
                     Log.e(TAG, "Issue with getting ratings for a game" + e);
                     return;
                 }
@@ -105,21 +126,18 @@ public class ReviewDetailFragment extends Fragment {
                 Post post = objects.get(0);
                 ParseUser postUser = post.getUser();
                 // Display user info
-                tvDetailUserName.setText(postUser.getUsername());
                 ParseFile profilePicture = postUser.getParseFile("profilePicture");
-                if(profilePicture != null){
-                    Glide.with(getView()).load(profilePicture.getUrl()).placeholder(R.drawable.logo1).centerCrop().into(ivDetailUserPicture);
-                }
-                else{
-                    Glide.with(getView()).load(R.drawable.logo1).centerCrop().into(ivDetailUserPicture);
+                if (profilePicture != null) {
+                    Glide.with(getView()).load(profilePicture.getUrl()).placeholder(R.drawable.logo1).centerCrop().into(ivCommentProfileImage);
+                } else {
+                    Glide.with(getView()).load(R.drawable.logo1).centerCrop().into(ivCommentProfileImage);
                 }
                 // Display post
-                rbDetailRating.setRating(Float.valueOf(post.getRating().toString()));
-                tvReview.setText(post.getPost());
+                tvCommenterReview.setText(post.getPost());
                 // Display game info
                 queryGame(post.getGameId());
                 // Navigate to user's profile page
-                ivDetailUserPicture.setOnClickListener(new View.OnClickListener() {
+                ivCommentProfileImage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Bundle bundle = new Bundle();
@@ -143,12 +161,12 @@ public class ReviewDetailFragment extends Fragment {
                 JSONObject jsonObject = json.jsonObject;
                 Log.d(TAG, "Async onSuccess");
                 try {
-                    tvDetailGameName.setText(jsonObject.get("name").toString());
+                    tvCommenterGameName.setText(jsonObject.get("name").toString());
                     String imageUrl = jsonObject.get("background_image").toString();
-                    Glide.with(getView()).load(imageUrl).centerCrop().placeholder(R.drawable.logo1).into(ivDetailGamePicture);
+                    Glide.with(getView()).load(imageUrl).centerCrop().placeholder(R.drawable.logo1).into(ivCommenterGameImage);
 
                     // Go to GameDetailFragment for queried game when game image is pressed
-                    ivDetailGamePicture.setOnClickListener(new View.OnClickListener() {
+                    ivCommenterGameImage.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Bundle bundle = new Bundle();
@@ -170,17 +188,5 @@ public class ReviewDetailFragment extends Fragment {
                 Log.d(TAG, "Async onFaliure");
             }
         });
-    }
-
-    // For hiding toolbar
-    @Override
-    public void onResume(){
-        super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-    }
-    @Override
-    public void onStop(){
-        super.onStop();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
 }
