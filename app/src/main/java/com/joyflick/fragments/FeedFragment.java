@@ -43,6 +43,7 @@ public class FeedFragment<current_date> extends Fragment {
     private RecyclerView rvPost;
     protected GameAdapter adapter;
     String current_date = String.valueOf(LocalDate.now());
+    String prev_date = String.valueOf(LocalDate.now().minusMonths(1));
 
     public FeedFragment(){
         // Empty public constructor required
@@ -68,7 +69,7 @@ public class FeedFragment<current_date> extends Fragment {
 
     private void queryGames() {
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get(GAME + "&dates=2000-01-01,"+ current_date + "&ordering=-released", new JsonHttpResponseHandler() {
+        client.get(GAME + "&dates=" + prev_date + "," + current_date + "&ordering=-metacritic", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 JSONObject jsonObject = json.jsonObject;
