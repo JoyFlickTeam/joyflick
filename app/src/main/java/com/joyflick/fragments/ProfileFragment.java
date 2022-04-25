@@ -32,9 +32,12 @@ import com.joyflick.models.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -196,7 +199,9 @@ public class ProfileFragment extends Fragment {
     // Trigger gallery selection for a photo
     public void onPickPhoto (View view) {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Log.i("Profile Fragmentation","Tagout");
         startActivityForResult(intent, PICK_PHOTO_CODE);
+
     }
 
     @Override
@@ -204,27 +209,60 @@ public class ProfileFragment extends Fragment {
         if((data != null) && requestCode == PICK_PHOTO_CODE) {
             Uri photoUri = data.getData();
             Bitmap selectedImage = loadFromUri(photoUri);
-            File selectedPhoto = getPhotoFileUri("avatar.jpg");
-            ParseFile parseFile = new ParseFile(selectedPhoto);
 
-            // Change profile photo of current user to selected image
-            Log.i(TAG, "Attempting to change profile photo");
-            ParseUser currentUser = ParseUser.getCurrentUser();
-            currentUser.put("profilePicture", parseFile);
-            currentUser.saveInBackground(e -> {
-                if(e == null){
-                    Log.i(TAG, "Profile photo update success");
-                    Toast.makeText(getContext(), "Profile photo has been updated.", Toast.LENGTH_SHORT).show();
-                    // Update profile picture displayed
-                    ParseFile profilePicture = currentUser.getParseFile("profilePicture");
-                    Glide.with(getContext()).load(profilePicture.getUrl()).placeholder(R.drawable.logo1).into(ivProfileImage);
-                } else {
-                    Log.e(TAG, "Profile photo update failure: " + e);
-                    // Toast.makeText(getContext(), "Error updating profile photo: " + e.toString(), Toast.LENGTH_SHORT).show();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            selectedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] bitmapBytes = stream.toByteArray();
+
+            ParseUser userBeforeSave = ParseUser.getCurrentUser();
+
+            ParseFile parseFile = new ParseFile("profile_"+userBeforeSave.getUsername()+".png",bitmapBytes);
+
+            parseFile.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if(e==null)
+                    {
+                        userUpdate(parseFile);
+                    }
+                    else
+                    {
+                        Log.e(TAG,"Failed on Saving parsefile to cloud:"+e);
+                    }
                 }
             });
+
+
         }
     }
+
+    public void userUpdate(ParseFile file)
+    {
+        Log.i(TAG,"checko!");
+
+
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        currentUser.put("profilePicture", file);
+
+        currentUser.saveInBackground(e -> {
+           if(e == null)
+           {
+               ParseUser uploadedUser = ParseUser.getCurrentUser();
+
+               Log.i(TAG, "Profile photo update success");
+               Toast.makeText(getContext(), "Profile photo has been updated.", Toast.LENGTH_SHORT).show();
+               // Update profile picture displayed
+               ParseFile profilePicture = uploadedUser.getParseFile("profilePicture");
+               Glide.with(getContext()).load(profilePicture.getUrl()).placeholder(R.drawable.logo1).into(ivProfileImage);
+           }
+           else
+           {
+               Log.e(TAG,"Failed on Uploading the User with profile file:"+e);
+           }
+        });
+    }
+
+
 
     public Bitmap loadFromUri(Uri photoUri) {
         Bitmap image = null;
