@@ -69,8 +69,7 @@
         android:textSize="30sp"
         android:visibility="invisible"
         android:text="This user has not posted any game reviews."
-        android:layout_below="@id/idReviews"
-        />
+        android:layout_below="@id/idReviews" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvUserReviews"

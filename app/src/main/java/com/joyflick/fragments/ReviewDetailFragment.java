@@ -71,6 +71,7 @@ public class ReviewDetailFragment extends Fragment {
         btnViewComments = view.findViewById(R.id.btnViewComments);
         queryPost();
 
+        // Add a comment to this review
         btnAddComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +83,20 @@ public class ReviewDetailFragment extends Fragment {
                 pcFragment.setArguments(bundle);
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, pcFragment).addToBackStack(null).commit();
+            }
+        });
+        // View comments for this review
+        btnViewComments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Pass review info to CommentsFragment
+                Bundle bundle = new Bundle();
+                bundle.putString("oId", objectId);
+                Log.i(TAG, "Sending oId " + objectId + " to CommentsFragment");
+                CommentsFragment cFragment = new CommentsFragment();
+                cFragment.setArguments(bundle);
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, cFragment).addToBackStack(null).commit();
             }
         });
     }
