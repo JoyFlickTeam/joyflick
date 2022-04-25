@@ -1,5 +1,6 @@
 package com.joyflick.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,18 +25,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Headers;
+import java.util.Calendar;
 
-public class FeedFragment extends Fragment {
+@RequiresApi(api = Build.VERSION_CODES.O)
+public class FeedFragment<current_date> extends Fragment {
 
     public static final String GAME = "https://api.rawg.io/api/games?key=8abe1aadb6a6459db418c8ac8239aa05";
     public static final String TAG = "FeedFragment";
     protected List<Game> games;
     private RecyclerView rvPost;
     protected GameAdapter adapter;
+    String current_date = String.valueOf(LocalDate.now());
 
     public FeedFragment(){
         // Empty public constructor required
@@ -60,7 +68,7 @@ public class FeedFragment extends Fragment {
 
     private void queryGames() {
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get(GAME, new JsonHttpResponseHandler() {
+        client.get(GAME + "&dates=2000-01-01,"+ current_date + "&ordering=-released", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 JSONObject jsonObject = json.jsonObject;
