@@ -45,10 +45,26 @@
         android:textColor="@color/black"
         app:autoSizeTextType="uniform" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/iduserResult"
-        android:layout_width="match_parent"
-        android:layout_height="166dp"
+    <ImageView
+        android:id="@+id/UserPicture"
+        android:layout_width="384px"
+        android:layout_height="256px"
         android:layout_below="@+id/textView"
-        android:layout_marginTop="0dp" />
+        android:layout_marginTop="4dp"
+        tools:layout_editor_absoluteX="18dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/UserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="9dp"
+        android:layout_toRightOf="@id/UserPicture"
+        android:textColor="#FFFFFF"
+        android:textSize="24dp"
+        tools:text="UserName" />
+
+
 </RelativeLayout>

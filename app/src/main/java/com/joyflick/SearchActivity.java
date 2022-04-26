@@ -5,17 +5,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.joyflick.Adapter.GameAdapter;
+import com.joyflick.Adapter.userAdapter;
 import com.joyflick.models.Game;
+import com.joyflick.models.Post;
+import com.joyflick.models.User;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +45,9 @@ public class SearchActivity extends AppCompatActivity {
     TextView idGames;
     RecyclerView idResult;
     TextView textView;
-    RecyclerView iduserResult;
+    TextView Username;
+    ImageView userImage;
+
 
 
     @Override
@@ -46,7 +59,8 @@ public class SearchActivity extends AppCompatActivity {
         idGames = findViewById(R.id.idGames);
         idResult = findViewById(R.id.idResult);
         textView = findViewById(R.id.textView);
-        iduserResult = findViewById(R.id.iduserResult);
+        Username = findViewById(R.id.UserName);
+        userImage = findViewById(R.id.UserPicture);
 
         idGames.setVisibility(View.GONE);
         textView.setVisibility(View.GONE);
@@ -57,11 +71,33 @@ public class SearchActivity extends AppCompatActivity {
         idResult.setLayoutManager(new LinearLayoutManager(this));
         games.clear();
 
+
         // doing the query search
 
         idSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+                ParseQuery<ParseUser> query= ParseUser.getQuery();
+                query.whereEqualTo("username", s);
+                Log.i(TAG, "Querying users for " + User.KEY_USERNAME + " equal to " + s);
+                query.findInBackground(new FindCallback<ParseUser>() {
+                    @Override
+                    public void done(List<ParseUser> users, ParseException e) {
+                        ParseUser user = users.get(0);
+                        String name = user.getUsername();
+                        ParseFile imageURL = user.getParseFile("profilePicture");
+                        textView.setVisibility(View.VISIBLE);
+                        if(imageURL != null){
+                            Log.i(TAG, "Attempting to load profile picture" + imageURL);
+                            Glide.with(userImage.getContext()).load(imageURL.getUrl()).into(userImage);
+                        }
+                        Username.setText(user.getUsername());
+                        Log.d("objects name" + name , TAG);
+
+                    }
+                });
+
+
                 AsyncHttpClient client = new AsyncHttpClient();
                 client.get(SEARCH + s, new JsonHttpResponseHandler() {
                     @Override
