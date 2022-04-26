@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Headers;
-import java.util.Calendar;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class FeedFragment<current_date> extends Fragment {
