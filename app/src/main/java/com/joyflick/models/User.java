@@ -10,6 +10,7 @@ public class User extends ParseObject {
     public static final String KEY_USERNAME = "username";
     public static final String KEY_EMAIL = "email";
     public static final String KEY_PROFILE = "profilePicture";
+    public static final String KEY_FOLLOWING = "following";
     public static final String KEY_CREATED_AT = "createdAt";
     public static final String KEY_OBJECTID = "objectId";
 
@@ -31,6 +32,10 @@ public class User extends ParseObject {
 
     public static String getKeyProfile() {
         return KEY_PROFILE;
+    }
+
+    public static String getKeyFollowing(){
+        return KEY_FOLLOWING;
     }
 
     public static String getKeyCreatedAt() {

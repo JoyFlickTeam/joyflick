@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,11 +50,14 @@ public class ProfileFragment extends Fragment {
     public final static int PICK_PHOTO_CODE = 1046;
     private ImageView ivProfileImage;
     private TextView tvProfileName;
+    private ImageButton ibFollow;
+    private ImageButton ibUnfollow;
     private Button btnLogout;
     private Button btnProfilePhoto;
     private TextView tvNoUserReviews;
     private RecyclerView rvUserReviews;
     private String userId;
+    private boolean isFollowing;
     protected ProfilePostAdapter adapter;
     protected List<Post> posts;
 
@@ -78,10 +82,13 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         tvProfileName = view.findViewById(R.id.tvProfileName);
         ivProfileImage = view.findViewById(R.id.ivProfileImage);
+        ibFollow = view.findViewById(R.id.ibFollow);
+        ibUnfollow = view.findViewById(R.id.ibUnfollow);
         btnLogout = view.findViewById(R.id.btnLogout);
         btnProfilePhoto = view.findViewById(R.id.btnProfilePhoto);
         rvUserReviews = view.findViewById(R.id.rvUserReviews);
         tvNoUserReviews = view.findViewById(R.id.tvNoUserReviews);
+        isFollowing = false;
         posts = new ArrayList<>();
         adapter = new ProfilePostAdapter(getContext(), posts);
         rvUserReviews.setAdapter(adapter);
@@ -118,6 +125,9 @@ public class ProfileFragment extends Fragment {
             ParseUser currentUser = ParseUser.getCurrentUser();
             btnLogout.setVisibility(View.VISIBLE);
             btnProfilePhoto.setVisibility(View.VISIBLE);
+            isFollowing = false;
+            ibFollow.setVisibility(View.GONE);
+            ibUnfollow.setVisibility(View.GONE);
             // Load profile image
             ParseFile profilePicture = currentUser.getParseFile("profilePicture");
             if(profilePicture != null){
@@ -132,6 +142,55 @@ public class ProfileFragment extends Fragment {
 
             queryPosts(currentUser);
         }
+
+        ibFollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Attempting to follow user");
+                updateFollowing(userId, true);
+                // Display unfollow button
+                ibUnfollow.setVisibility(View.VISIBLE);
+                ibFollow.setVisibility(View.GONE);
+            }
+        });
+        ibUnfollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Attempting to unfollow user");
+                updateFollowing(userId, false);
+                // Display follow button
+                ibFollow.setVisibility(View.VISIBLE);
+                ibUnfollow.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    protected void updateFollowing(String uId, boolean follow){
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        List<String> following = new ArrayList<>();
+        // Get current following list if it exists
+        if(currentUser.getList("following") != null) {
+            following.addAll(currentUser.getList("following"));
+        }
+        // Determine if following or unfollowing user
+        if (follow) {
+            // Add user to following
+            following.add(uId);
+        } else {
+            // Remove user from following
+            following.remove(uId);
+        }
+        currentUser.put("following", following);
+        currentUser.saveInBackground(e -> {
+                if(e == null)
+                {
+                    Log.i(TAG, "Updated following list");
+                }
+                else
+                {
+                    Log.e(TAG,"Failed to update following list:" + e);
+                }
+        });
     }
 
     protected void queryUser(){
@@ -161,6 +220,22 @@ public class ProfileFragment extends Fragment {
                 }
                 tvProfileName.setText(profileUser.getString("username"));
                 queryPosts(profileUser);
+
+                // Update isFollowing if current user is following fetched user
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                List<String> following = currentUser.getList("following");
+                if(following != null && following.contains(profileUser.getObjectId())){
+                    Log.i(TAG, "Currently following user, show unfollow button");
+                    isFollowing = true;
+                    ibUnfollow.setVisibility(View.VISIBLE);
+                    ibFollow.setVisibility(View.GONE);
+                }
+                else{
+                    Log.i(TAG, "Not following user, show follow button");
+                    isFollowing = false;
+                    ibFollow.setVisibility(View.VISIBLE);
+                    ibUnfollow.setVisibility(View.GONE);
+                }
             }
         });
     }
