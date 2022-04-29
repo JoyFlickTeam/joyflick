@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/layout/fragment_profile.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/joyflick/app/src/main/res/drawable/message_incoming.xml" value="0.1205" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/joyflick/app/src/main/res/drawable/message_outgoing.xml" value="0.1205" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/joyflick/app/src/main/res/layout/activity_chat.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/joyflick/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/joyflick/app/src/main/res/layout/activity_main.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/joyflick/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
@@ -20,6 +23,8 @@
         <entry key="..\:/Users/Owner/AndroidStudioProjects/joyflick/app/src/main/res/layout/item_game_rating.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/joyflick/app/src/main/res/layout/item_profile_rating.xml" value="0.4" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/joyflick/app/src/main/res/layout/item_search.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/joyflick/app/src/main/res/layout/message_incoming.xml" value="0.4" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/joyflick/app/src/main/res/layout/message_outgoing.xml" value="0.4" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/joyflick/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.109375" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/joyflick/app/src/main/res/menu/menu_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/dhrum/Desktop/Dhrumil/Fifth_sem/joyflick/app/src/main/res/drawable/ic_launcher_background.xml" value="0.325" />

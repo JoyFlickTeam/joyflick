@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -47,13 +48,21 @@ public class SearchActivity extends AppCompatActivity {
     TextView textView;
     TextView Username;
     ImageView userImage;
-
+    boolean searchUsers;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        if(getIntent().getExtras() != null) {
+            searchUsers = getIntent().getExtras().getBoolean("searchUsers");
+        }
+        else{
+            searchUsers = true;
+        }
+        Log.i(TAG, "Search users is " + searchUsers);
 
         idSearch = findViewById(R.id.idSearch);
         idGames = findViewById(R.id.idGames);
@@ -77,26 +86,31 @@ public class SearchActivity extends AppCompatActivity {
         idSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                ParseQuery<ParseUser> query= ParseUser.getQuery();
-                query.whereEqualTo("username", s);
-                Log.i(TAG, "Querying users for " + User.KEY_USERNAME + " equal to " + s);
-                query.findInBackground(new FindCallback<ParseUser>() {
-                    @Override
-                    public void done(List<ParseUser> users, ParseException e) {
-                        ParseUser user = users.get(0);
-                        String name = user.getUsername();
-                        ParseFile imageURL = user.getParseFile("profilePicture");
-                        textView.setVisibility(View.VISIBLE);
-                        if(imageURL != null){
-                            Log.i(TAG, "Attempting to load profile picture" + imageURL);
-                            Glide.with(userImage.getContext()).load(imageURL.getUrl()).into(userImage);
+                if(searchUsers) {
+                    ParseQuery<ParseUser> query = ParseUser.getQuery();
+                    query.whereEqualTo("username", s);
+                    Log.i(TAG, "Querying users for " + User.KEY_USERNAME + " equal to " + s);
+                    query.findInBackground(new FindCallback<ParseUser>() {
+                        @Override
+                        public void done(List<ParseUser> users, ParseException e) {
+                            ParseUser user = users.get(0);
+                            String name = user.getUsername();
+                            ParseFile imageURL = user.getParseFile("profilePicture");
+                            textView.setVisibility(View.VISIBLE);
+                            if (imageURL != null) {
+                                Log.i(TAG, "Attempting to load profile picture" + imageURL);
+                                Glide.with(userImage.getContext()).load(imageURL.getUrl()).into(userImage);
+                            }
+                            Username.setText(user.getUsername());
+                            Log.d("objects name" + name, TAG);
+
                         }
-                        Username.setText(user.getUsername());
-                        Log.d("objects name" + name , TAG);
-
-                    }
-                });
-
+                    });
+                }
+                else{
+                    // Extend games recycler view to whole screen for game selection
+                    idResult.getLayoutParams().height = -1;
+                }
 
                 AsyncHttpClient client = new AsyncHttpClient();
                 client.get(SEARCH + s, new JsonHttpResponseHandler() {
