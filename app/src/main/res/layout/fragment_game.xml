@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#131D3E"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivGamePoster"
+        android:layout_width="512px"
+        android:layout_height="640px"
+        tools:layout_editor_absoluteX="18dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvGameName"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:maxLines="4"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/ivGamePoster"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="24sp"
+        tools:text="Game detail fragment" />
+
+    <RatingBar
+        android:id="@+id/rbGameAvgRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvGameName"
+        android:layout_toRightOf="@id/ivGamePoster"
+        android:numStars="5"
+        android:stepSize="0.1"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:progressTint="@color/nav_color"
+        android:secondaryProgressTint="@color/nav_color"
+        android:layout_marginLeft="30dp"
+        android:transformPivotX="0dp"
+        android:transformPivotY="0dp"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:isIndicator="true" />
+
+    <ImageButton
+        android:id="@+id/ibAddReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rbGameAvgRating"
+        android:layout_marginLeft="80dp"
+        android:layout_toRightOf="@id/ivGamePoster"
+        android:background="@color/nav_color"
+        android:layout_marginTop="20dp"
+        app:srcCompat="@drawable/post" />
+
+    <TextView
+        android:id="@+id/tvNoReviews"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:visibility="invisible"
+        android:text="There are currently no reviews for this game.\n Be the first to post one!"
+        android:layout_below="@id/ivGamePoster" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvGameRatings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ivGamePoster" />
+
+</RelativeLayout>

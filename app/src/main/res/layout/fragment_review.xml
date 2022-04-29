@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#131D3E">
+
+    <ImageView
+        android:id="@+id/ivDetailGamePicture"
+        android:layout_width="256px"
+        android:layout_height="256px"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvDetailGameName"
+        android:layout_width="264dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="48px"
+        android:layout_marginTop="70px"
+        android:layout_toRightOf="@id/ivDetailGamePicture"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        android:maxLines="2"
+        tools:text="Video Game" />
+
+    <ImageView
+        android:id="@+id/ivDetailUserPicture"
+        android:layout_width="256px"
+        android:layout_height="256px"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@id/ivDetailGamePicture"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvDetailUserName"
+        android:layout_width="264dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="48px"
+        android:layout_marginTop="70px"
+        android:layout_toRightOf="@id/ivDetailUserPicture"
+        android:layout_below="@id/ivDetailGamePicture"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        android:maxLines="2"
+        tools:text="UserName" />
+
+    <RatingBar
+        android:id="@+id/rbDetailRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivDetailUserPicture"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:isIndicator="true"
+        android:progressTint="@color/nav_color"
+        android:secondaryProgressTint="@color/nav_color"
+        android:numStars="5"
+        android:stepSize="0.5" />
+
+    <TextView
+        android:id="@+id/tvReview"
+        android:layout_width="356dp"
+        android:layout_height="256dp"
+        android:background="@color/nav_color"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:gravity="top"
+        android:layout_below="@id/rbDetailRating"
+        tools:text="Wow this game was not good!" />
+
+    <Button
+        android:id="@+id/btnViewComments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvReview"
+        android:text="View Comments" />
+
+    <Button
+        android:id="@+id/btnAddComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnViewComments"
+        android:text="Add Comment" />
+
+</RelativeLayout>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#131D3E"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/ivProfileImage"
+        android:layout_width="256px"
+        android:layout_height="256px"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvProfileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="48px"
+        android:layout_marginTop="70px"
+        android:layout_toRightOf="@id/ivProfileImage"
+        android:textColor="#FFFFFF"
+        android:textSize="32sp"
+        tools:text="UserName" />
+
+    <Button
+        android:id="@+id/btnProfilePhoto"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/ivProfileImage"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#808080"
+        android:text="Change Profile Photo" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/btnProfilePhoto"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#808080"
+        android:text="Log Out" />
+
+    <TextView
+        android:id="@+id/idReviews"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:layout_below="@id/btnLogout"
+        android:layout_marginTop="0dp"
+        android:background="@color/nav_color"
+        android:text="Reviews"
+        android:textColor="@color/black"
+        android:textAlignment="inherit"
+        app:autoSizeTextType="uniform" />
+
+    <TextView
+        android:id="@+id/tvNoUserReviews"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:visibility="invisible"
+        android:text="This user has not posted any game reviews."
+        android:layout_below="@id/idReviews" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvUserReviews"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/idReviews"
+        android:layout_marginTop="1dp" />
+</RelativeLayout>

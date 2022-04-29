@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#131D3E"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivReviewGamePoster"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvReviewGameName"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ivReviewGamePoster"
+        tools:text="Elden Ring"
+        tools:layout_editor_absoluteX="149dp"
+        tools:layout_editor_absoluteY="198dp" />
+
+    <RatingBar
+        android:id="@+id/rbReviewRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvReviewGameName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:progressTint="@color/nav_color"
+        android:secondaryProgressTint="@color/nav_color"
+        android:numStars="5"
+        android:stepSize="0.5" />
+
+    <EditText
+        android:id="@+id/etReview"
+        android:layout_width="356dp"
+        android:layout_height="256dp"
+        android:background="#C4C4C4"
+        android:hint="Add a review..."
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:textSize="22sp"
+        android:gravity="top"
+        android:layout_below="@id/rbReviewRating" />
+
+    <ImageButton
+        android:id="@+id/ibReviewPost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etReview"
+        android:layout_alignRight="@id/etReview"
+        android:background="@color/nav_color"
+        app:srcCompat="@drawable/check" />
+</RelativeLayout>

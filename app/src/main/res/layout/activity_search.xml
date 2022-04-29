@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#131D3E"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <SearchView
+        android:id="@+id/idSearch"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:background="@color/light_background"
+        android:inputType="text"
+        android:queryHint="Search Games" />
+
+    <TextView
+        android:id="@+id/idGames"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:layout_below="@+id/idSearch"
+        android:layout_marginTop="0dp"
+        android:background="@color/nav_color"
+        android:text="Games"
+        android:textAlignment="inherit"
+        android:textColor="@color/black"
+        app:autoSizeTextType="uniform" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/idResult"
+        android:layout_width="match_parent"
+        android:layout_height="394dp"
+        android:layout_below="@+id/idGames"
+        android:layout_marginTop="1dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:layout_below="@+id/idResult"
+        android:layout_marginTop="0dp"
+        android:background="@color/nav_color"
+        android:text="Users"
+        android:textAlignment="inherit"
+        android:textColor="@color/black"
+        app:autoSizeTextType="uniform" />
+
+    <ImageView
+        android:id="@+id/UserPicture"
+        android:layout_width="384px"
+        android:layout_height="256px"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="4dp"
+        tools:layout_editor_absoluteX="18dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/UserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="9dp"
+        android:layout_toRightOf="@id/UserPicture"
+        android:textColor="#FFFFFF"
+        android:textSize="24dp"
+        tools:text="UserName" />
+
+
+</RelativeLayout>
