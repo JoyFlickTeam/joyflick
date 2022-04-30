@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.joyflick.backbone.RAWGConnector;
 import com.joyflick.fragments.FeedFragment;
+import com.joyflick.fragments.FollowingFragment;
 import com.joyflick.fragments.PostFragment;
 import com.joyflick.fragments.ProfileFragment;
 
@@ -49,11 +51,15 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setItemIconTintList(null);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @SuppressLint("NewApi")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem){
                 Fragment fragment;
                 switch (menuItem.getItemId()) {
                     case R.id.action_home:
+                        fragment = new FollowingFragment();
+                        break;
+                    case R.id.action_releases:
                         fragment = new FeedFragment();
                         break;
                     case R.id.action_post:
@@ -97,6 +103,12 @@ public class MainActivity extends AppCompatActivity {
             // Navigate to search activity
             Intent intent = new Intent(this, SearchActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
+            return true;
+        }
+        if(item.getItemId() == R.id.chat){
+            // Navigate to chat activity
+            Intent intent = new Intent(this, ChatActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
