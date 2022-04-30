@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ public class PostCommentFragment extends Fragment {
     private ImageView ivCommentProfileImage;
     private ImageView ivCommenterGameImage;
     private TextView tvCommenterGameName;
+    private RatingBar rbRatingCommenter;
     private TextView tvCommenterReview;
     private TextView tvCommenterProfileName;
     private EditText etComment;
@@ -67,6 +69,7 @@ public class PostCommentFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ivCommentProfileImage = view.findViewById(R.id.ivCommentProfileImage);
         tvCommenterProfileName = view.findViewById(R.id.tvCommenterProfileName);
+        rbRatingCommenter = view.findViewById(R.id.rbRatingCommenter);
         ivCommenterGameImage = view.findViewById(R.id.ivCommenterGameImage);
         tvCommenterGameName = view.findViewById(R.id.tvCommenterGameName);
         tvCommenterReview = view.findViewById(R.id.tvCommenterReview);
@@ -137,6 +140,7 @@ public class PostCommentFragment extends Fragment {
                     Glide.with(getView()).load(R.drawable.logo1).centerCrop().into(ivCommentProfileImage);
                 }
                 // Display post
+                rbRatingCommenter.setRating(Float.valueOf(post.getRating().toString()));
                 tvCommenterReview.setText(post.getPost());
                 // Display game info
                 queryGame(post.getGameId());

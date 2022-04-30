@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.joyflick.backbone.RAWGConnector;
 import com.joyflick.fragments.FeedFragment;
+import com.joyflick.fragments.FollowingFragment;
 import com.joyflick.fragments.PostFragment;
 import com.joyflick.fragments.ProfileFragment;
 
@@ -56,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment;
                 switch (menuItem.getItemId()) {
                     case R.id.action_home:
+                        fragment = new FollowingFragment();
+                        break;
+                    case R.id.action_releases:
                         fragment = new FeedFragment();
                         break;
                     case R.id.action_post:
