@@ -72,7 +72,12 @@ public class userAdapter extends RecyclerView.Adapter<userAdapter.ViewHolder> {
             imageUrl = user.getParseFile("profilePicture");
             Log.i(TAG, String.valueOf(imageUrl));
             Log.i(TAG, "Attempting to load profile picture" + imageUrl);
-            Glide.with(userImage.getContext()).load(imageUrl.getUrl()).placeholder(R.drawable.logo1).into(userImage);
+            if(imageUrl != null) {
+                Glide.with(userImage.getContext()).load(imageUrl.getUrl()).placeholder(R.drawable.logo1).into(userImage);
+            }
+            else{
+                Glide.with(userImage.getContext()).load(imageUrl).centerCrop().placeholder(R.drawable.logo1).into(userImage);
+            }
             //Glide.with(userImage.getContext()).load(imageUrl.getUrl()).into(userImage);
             //Glide.with(userImage.getContext()).load(imageUrl).centerCrop().placeholder(R.drawable.logo1).into(userImage);
         }

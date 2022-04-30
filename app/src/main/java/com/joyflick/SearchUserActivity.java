@@ -58,9 +58,6 @@ public class SearchUserActivity extends AppCompatActivity {
                     @Override
                     public void done(List<ParseUser> object, ParseException e)
                     {
-                        //ParseUser user = object.get(0);
-                        //String name = user.getUsername();
-                        //Log.i(TAG, "Users: " + user.toString());
                         idUserText.setVisibility(View.VISIBLE);
                         users.addAll(object);
                     }
