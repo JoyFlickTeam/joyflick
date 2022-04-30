@@ -15,6 +15,9 @@ import com.bumptech.glide.Glide;
 import com.joyflick.R;
 import com.joyflick.models.Game;
 import com.joyflick.models.User;
+import com.parse.Parse;
+import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import java.util.List;
 
@@ -22,9 +25,9 @@ public class userAdapter extends RecyclerView.Adapter<userAdapter.ViewHolder> {
 
     public static final String TAG = "userAdapter";
     Context context;
-    List<User> users;
+    List<ParseUser> users;
 
-    public userAdapter(Context context, List<User> user){
+    public userAdapter(Context context, List<ParseUser> user){
         this.context = context;
         this.users = user;
     }
@@ -41,7 +44,7 @@ public class userAdapter extends RecyclerView.Adapter<userAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull userAdapter.ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder" + position);
         // get the game position
-        User user = users.get(position);
+        ParseUser user = users.get(position);
         holder.bind(user);
     }
 
@@ -63,12 +66,15 @@ public class userAdapter extends RecyclerView.Adapter<userAdapter.ViewHolder> {
             userImage = userView.findViewById(R.id.UserPicture);
         }
 
-        public void bind(User user) {
-            String imageUrl;
-            username.setText(User.getKeyUsername());
-            imageUrl = User.getKeyProfile();
-            Log.i(TAG, imageUrl);
-            Glide.with(context).load(imageUrl).centerCrop().placeholder(R.drawable.logo1).into(userImage);
+        public void bind(ParseUser user) {
+            ParseFile imageUrl;
+            username.setText(user.getUsername());
+            imageUrl = user.getParseFile("profilePicture");
+            Log.i(TAG, String.valueOf(imageUrl));
+            Log.i(TAG, "Attempting to load profile picture" + imageUrl);
+            Glide.with(userImage.getContext()).load(imageUrl.getUrl()).placeholder(R.drawable.logo1).into(userImage);
+            //Glide.with(userImage.getContext()).load(imageUrl.getUrl()).into(userImage);
+            //Glide.with(userImage.getContext()).load(imageUrl).centerCrop().placeholder(R.drawable.logo1).into(userImage);
         }
     }
 }
