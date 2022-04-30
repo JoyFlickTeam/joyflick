@@ -27,8 +27,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.joyflick.Adapter.ProfilePostAdapter;
+import com.joyflick.ChatActivity;
 import com.joyflick.LoginActivity;
 import com.joyflick.R;
+import com.joyflick.SearchActivity;
 import com.joyflick.models.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -52,6 +54,7 @@ public class ProfileFragment extends Fragment {
     private TextView tvProfileName;
     private ImageButton ibFollow;
     private ImageButton ibUnfollow;
+    private ImageButton ibMessage;
     private Button btnLogout;
     private Button btnProfilePhoto;
     private TextView tvNoUserReviews;
@@ -84,6 +87,7 @@ public class ProfileFragment extends Fragment {
         ivProfileImage = view.findViewById(R.id.ivProfileImage);
         ibFollow = view.findViewById(R.id.ibFollow);
         ibUnfollow = view.findViewById(R.id.ibUnfollow);
+        ibMessage = view.findViewById(R.id.ibMessage);
         btnLogout = view.findViewById(R.id.btnLogout);
         btnProfilePhoto = view.findViewById(R.id.btnProfilePhoto);
         rvUserReviews = view.findViewById(R.id.rvUserReviews);
@@ -116,18 +120,21 @@ public class ProfileFragment extends Fragment {
 
         if(!userId.equals(ParseUser.getCurrentUser().getObjectId())){
             // Viewing someone else's profile
+            Log.i(TAG, "Viewing someone else's profile, querying user...");
             queryUser();
             btnLogout.setVisibility(View.GONE);
             btnProfilePhoto.setVisibility(View.GONE);
         }
         else{
             // Viewing logged in user's profile details
+            Log.i(TAG, "Viewing own profile, show profile edit options");
             ParseUser currentUser = ParseUser.getCurrentUser();
             btnLogout.setVisibility(View.VISIBLE);
             btnProfilePhoto.setVisibility(View.VISIBLE);
             isFollowing = false;
             ibFollow.setVisibility(View.GONE);
             ibUnfollow.setVisibility(View.GONE);
+            ibMessage.setVisibility(View.GONE);
             // Load profile image
             ParseFile profilePicture = currentUser.getParseFile("profilePicture");
             if(profilePicture != null){
@@ -150,7 +157,7 @@ public class ProfileFragment extends Fragment {
                 updateFollowing(userId, true);
                 // Display unfollow button
                 ibUnfollow.setVisibility(View.VISIBLE);
-                ibFollow.setVisibility(View.GONE);
+                ibFollow.setVisibility(View.INVISIBLE);
             }
         });
         ibUnfollow.setOnClickListener(new View.OnClickListener() {
@@ -160,7 +167,19 @@ public class ProfileFragment extends Fragment {
                 updateFollowing(userId, false);
                 // Display follow button
                 ibFollow.setVisibility(View.VISIBLE);
-                ibUnfollow.setVisibility(View.GONE);
+                ibUnfollow.setVisibility(View.INVISIBLE);
+            }
+        });
+        ibMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start chat activity with other user
+                Log.i(TAG, "Navigating to chat activity");
+                Bundle bundle = new Bundle();
+                bundle.putString("oId", userId);
+                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }
@@ -228,13 +247,13 @@ public class ProfileFragment extends Fragment {
                     Log.i(TAG, "Currently following user, show unfollow button");
                     isFollowing = true;
                     ibUnfollow.setVisibility(View.VISIBLE);
-                    ibFollow.setVisibility(View.GONE);
+                    ibFollow.setVisibility(View.INVISIBLE);
                 }
                 else{
                     Log.i(TAG, "Not following user, show follow button");
                     isFollowing = false;
                     ibFollow.setVisibility(View.VISIBLE);
-                    ibUnfollow.setVisibility(View.GONE);
+                    ibUnfollow.setVisibility(View.INVISIBLE);
                 }
             }
         });

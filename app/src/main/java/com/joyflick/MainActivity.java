@@ -105,12 +105,6 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, REQUEST_CODE);
             return true;
         }
-        if(item.getItemId() == R.id.chat){
-            // Navigate to chat activity
-            Intent intent = new Intent(this, ChatActivity.class);
-            startActivity(intent);
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 }

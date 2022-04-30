@@ -72,7 +72,17 @@ public class SearchUserActivity extends AppCompatActivity {
         });
 
 
-
-
     }// end of the onCreate
+
+    // Hide top bar
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getSupportActionBar().hide();
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        getSupportActionBar().show();
+    }
 }

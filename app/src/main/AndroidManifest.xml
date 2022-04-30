@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.joyflick">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -41,14 +42,17 @@
         </activity>
         <activity
             android:name=".SearchUserActivity"
-            android:exported="true">
+            android:exported="true"
+            tools:ignore="Instantiatable">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
             <meta-data android:name="android.app.searchable"
                 android:resource="@layout/activity_user_search"/>
         </activity>
-
+        <activity
+            android:name=".ChatActivity"
+            android:exported="true" />
 
     </application>
 

@@ -44,9 +44,18 @@
         android:layout_toRightOf="@id/tvProfileName"
         android:layout_marginTop="25dp"
         android:layout_marginLeft="10dp"
-        android:visibility="gone"
         android:background="@color/nav_color"
         app:srcCompat="@drawable/unfollow" />
+
+    <ImageButton
+        android:id="@+id/ibMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ibFollow"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/nav_color"
+        app:srcCompat="@drawable/chat" />
 
     <Button
         android:id="@+id/btnProfilePhoto"

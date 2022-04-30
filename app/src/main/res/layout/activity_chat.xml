@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@android:color/white"
+    android:background="#131D3E"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -23,16 +23,19 @@
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
         android:layout_height="wrap_content">
+
         <EditText
             android:id="@+id/etMessage"
-            android:layout_toLeftOf="@+id/ibSend"
-            android:layout_alignBottom="@+id/ibSend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ibSend"
+            android:layout_toLeftOf="@+id/ibSend"
             android:gravity="top"
             android:hint="Enter message..."
+            android:imeOptions="actionSend"
             android:inputType="textShortMessage"
-            android:imeOptions="actionSend" />
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF" />
 
         <ImageButton
             android:id="@+id/ibSend"
@@ -43,6 +46,7 @@
             android:layout_alignParentRight="true"
             android:contentDescription="Send"
             android:src="@drawable/send"
+            android:background="@color/nav_color"
             android:textSize="18sp" />
     </RelativeLayout>
 

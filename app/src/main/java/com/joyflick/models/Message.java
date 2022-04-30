@@ -5,22 +5,31 @@ import com.parse.ParseObject;
 
 @ParseClassName("Message")
 public class Message extends ParseObject {
-    public static final String USER_ID_KEY = "userId";
-    public static final String BODY_KEY = "body";
+    public static final String KEY_USER_ID= "userId";
+    public static final String KEY_BODY = "body";
+    public static final String KEY_OTHER_ID = "otherId";
 
     public String getUserId() {
-        return getString(USER_ID_KEY);
+        return getString(KEY_USER_ID);
     }
 
     public String getBody() {
-        return getString(BODY_KEY);
+        return getString(KEY_BODY);
+    }
+
+    public String getOtherId(){
+        return getString(KEY_OTHER_ID);
     }
 
     public void setUserId(String userId) {
-        put(USER_ID_KEY, userId);
+        put(KEY_USER_ID, userId);
     }
 
     public void setBody(String body) {
-        put(BODY_KEY, body);
+        put(KEY_BODY, body);
+    }
+
+    public void setOtherId(String otherId){
+        put(KEY_OTHER_ID, otherId);
     }
 }

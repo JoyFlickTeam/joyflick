@@ -1,6 +1,7 @@
 package com.joyflick.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,22 +14,29 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.joyflick.R;
 import com.joyflick.models.Message;
+import com.joyflick.models.Post;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHolder> {
+    public static final String TAG = "ChatAdapter";
     private static final int MESSAGE_OUTGOING = 129;
     private static final int MESSAGE_INCOMING = 921;
     private List<Message> mMessages;
     private static Context mContext;
-    private String mUserId;
+    protected static String mUserId;
+    protected static String otherId;
 
-    public ChatAdapter(Context context, String userId, List<Message> messages) {
+    public ChatAdapter(Context context, String userId, String otherId, List<Message> messages) {
         mMessages = messages;
         this.mUserId = userId;
         mContext = context;
+        this.otherId = otherId;
     }
 
     @Override
@@ -92,9 +100,38 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
 
             @Override
             public void bindMessage(Message message) {
-                //Glide.with(mContext).load(getProfileUrl(message.getUserId())).circleCrop().into(imageOther);
+                queryOtherUser();
                 body.setText(message.getBody());
-                name.setText(message.getUserId());
+            }
+
+            protected void queryOtherUser(){
+                ParseQuery<ParseUser> query= ParseUser.getQuery();
+                query.whereEqualTo("objectId", otherId);
+                query.setLimit(1);
+                Log.i(TAG, "Querying users for " + Post.KEY_USER + " equal to " + otherId);
+
+                query.findInBackground(new FindCallback<ParseUser>() {
+                    @Override
+                    public void done(List<ParseUser> users, ParseException e) {
+                        if(e != null){
+                            Log.e(TAG, "Issue with getting user" + e);
+                            return;
+                        }
+                        // There should be only one user
+                        ParseUser profileUser = users.get(0);
+                        // Show other user's profile picture and name
+                        name.setText(profileUser.getUsername());
+                        ParseFile profilePicture = profileUser.getParseFile("profilePicture");
+                        if(profilePicture != null){
+                            Log.i(TAG, "Attempting to load profile picture");
+                            Glide.with(mContext).load(profilePicture.getUrl()).circleCrop().into(imageOther);
+                        }
+                        else{
+                            Log.i(TAG, "Using default profile picture");
+                            Glide.with(mContext).load(R.drawable.logo1).circleCrop().into(imageOther);
+                        }
+                    }
+                });
             }
         }
 
@@ -110,8 +147,37 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
 
             @Override
             public void bindMessage(Message message) {
-                //Glide.with(mContext).load(getProfileUrl(message.getUserId())).circleCrop().into(imageMe);
+                queryUser();
                 body.setText(message.getBody());
+            }
+
+            protected void queryUser(){
+                ParseQuery<ParseUser> query= ParseUser.getQuery();
+                query.whereEqualTo("objectId", mUserId);
+                query.setLimit(1);
+                Log.i(TAG, "Querying users for " + Post.KEY_USER + " equal to " + mUserId);
+
+                query.findInBackground(new FindCallback<ParseUser>() {
+                    @Override
+                    public void done(List<ParseUser> users, ParseException e) {
+                        if(e != null){
+                            Log.e(TAG, "Issue with getting user" + e);
+                            return;
+                        }
+                        // There should be only one user
+                        ParseUser profileUser = users.get(0);
+                        // Show user's profile picture
+                        ParseFile profilePicture = profileUser.getParseFile("profilePicture");
+                        if(profilePicture != null){
+                            Log.i(TAG, "Attempting to load profile picture");
+                            Glide.with(mContext).load(profilePicture.getUrl()).circleCrop().into(imageMe);
+                        }
+                        else{
+                            Log.i(TAG, "Using default profile picture");
+                            Glide.with(mContext).load(R.drawable.logo1).circleCrop().into(imageMe);
+                        }
+                    }
+                });
             }
         }
     }

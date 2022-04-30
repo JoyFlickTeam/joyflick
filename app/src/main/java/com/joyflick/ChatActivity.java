@@ -12,12 +12,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.joyflick.Adapter.ChatAdapter;
 import com.joyflick.models.Message;
+import com.joyflick.models.Post;
 import com.parse.FindCallback;
 import com.parse.LogInCallback;
 import com.parse.ParseAnonymousUtils;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -40,15 +43,30 @@ public class ChatActivity extends AppCompatActivity {
     List<Message> mMessages;
     boolean mFirstLoad;
     ChatAdapter mAdapter;
+    String userId;
+    String otherId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        // Get other user's id
+        if(getIntent().getExtras() != null) {
+            otherId = getIntent().getExtras().getString("oId");
+            Log.i(TAG, otherId);
+        }
+        else{
+            Log.e(TAG, "Entering chat activity without other user id... this shouldn't happen!");
+            otherId = "";
+        }
+
         // User login
         if (ParseUser.getCurrentUser() != null) { // start with existing user
+            userId = ParseUser.getCurrentUser().getObjectId();
             startWithCurrentUser();
         } else { // If not logged in, login as a new anonymous user
+            Log.e(TAG, "Entering chat activity as anonymous user... this shouldn't happen!");
+            userId = "";
             login();
         }
     }
@@ -81,10 +99,10 @@ public class ChatActivity extends AppCompatActivity {
         mMessages = new ArrayList<>();
         mFirstLoad = true;
         final String userId = ParseUser.getCurrentUser().getObjectId();
-        mAdapter = new ChatAdapter(ChatActivity.this, userId, mMessages);
+        mAdapter = new ChatAdapter(ChatActivity.this, userId, otherId, mMessages);
         rvChat.setAdapter(mAdapter);
 
-        // associate the LayoutManager with the RecylcerView
+        // associate the LayoutManager with the RecyclerView
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChatActivity.this);
         linearLayoutManager.setReverseLayout(true);
         rvChat.setLayoutManager(linearLayoutManager);
@@ -97,6 +115,7 @@ public class ChatActivity extends AppCompatActivity {
                 Message message = new Message();
                 message.setUserId(ParseUser.getCurrentUser().getObjectId());
                 message.setBody(data);
+                message.setOtherId(otherId);
                 message.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
@@ -114,19 +133,25 @@ public class ChatActivity extends AppCompatActivity {
 
     // Query messages from Parse so we can load them into the chat adapter
     void refreshMessages() {
-        // Construct query to execute
         ParseQuery<Message> query = ParseQuery.getQuery(Message.class);
-        // Configure limit and sort order
         query.setLimit(MAX_CHAT_MESSAGES_TO_SHOW);
-        // get the latest 50 messages, order will show up newest to oldest of this group
         query.orderByDescending("createdAt");
+
         // Execute query to fetch all messages from Parse asynchronously
         // This is equivalent to a SELECT query with SQL
         query.findInBackground(new FindCallback<Message>() {
             public void done(List<Message> messages, ParseException e) {
                 if (e == null) {
                     mMessages.clear();
-                    mMessages.addAll(messages);
+                    // Only show message history of current 2 users
+                    for(Message message: messages){
+                        String uId = message.getUserId();
+                        String oId = message.getOtherId();
+                        if((uId.equals(userId) && oId.equals(otherId)) || (uId.equals(otherId) && oId.equals(userId))){
+                            mMessages.add(message);
+                        }
+                    }
+
                     mAdapter.notifyDataSetChanged(); // update adapter
                     // Scroll to the bottom of the list on initial load
                     if (mFirstLoad) {
@@ -153,6 +178,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onResume();
         // Only start checking for new messages when the app becomes active in foreground
         myHandler.postDelayed(mRefreshMessagesRunnable, POLL_INTERVAL);
+        getSupportActionBar().hide();
     }
 
     @Override
@@ -160,5 +186,11 @@ public class ChatActivity extends AppCompatActivity {
         // Stop background task from refreshing messages, to avoid unnecessary traffic & battery drain
         myHandler.removeCallbacksAndMessages(null);
         super.onPause();
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        getSupportActionBar().show();
     }
 }
