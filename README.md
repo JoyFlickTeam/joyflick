@@ -38,7 +38,7 @@ JoyFlick is an application that will allow users to view and post video game rev
 
 - [ ] Users can update their credentials in profile settings
 - [ ] Users can enable a mode to only view reviews from verified users
-- [ ] Users can follow other users
+- [x] Users can follow other users
 
 ### 2. Screen Archetypes
 
