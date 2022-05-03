@@ -9,13 +9,14 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.joyflick.Adapter.GameAdapter;
 import com.joyflick.R;
-import com.joyflick.SearchActivity;
+import com.joyflick.SearchFragment;
 import com.joyflick.SearchUserActivity;
 
 import java.util.ArrayList;
@@ -49,8 +50,9 @@ public class SearchSelectorFragment extends Fragment {
         ibSearchGames.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(), SearchActivity.class);
-                startActivity(intent);
+                SearchFragment sFragment = new SearchFragment();
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, sFragment).addToBackStack(null).commit();
             }
         });
         ibSearchUsers.setOnClickListener(new View.OnClickListener() {

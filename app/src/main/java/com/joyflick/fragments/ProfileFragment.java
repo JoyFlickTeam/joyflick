@@ -30,7 +30,6 @@ import com.joyflick.Adapter.ProfilePostAdapter;
 import com.joyflick.ChatActivity;
 import com.joyflick.LoginActivity;
 import com.joyflick.R;
-import com.joyflick.SearchActivity;
 import com.joyflick.models.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;

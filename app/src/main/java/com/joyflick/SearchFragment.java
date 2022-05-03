@@ -3,12 +3,17 @@ package com.joyflick;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +31,7 @@ import java.util.List;
 
 import okhttp3.Headers;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchFragment extends Fragment {
     public static final String SEARCH = "https://api.rawg.io/api/games?key=8abe1aadb6a6459db418c8ac8239aa05&search=";
     public static final String TAG = "SearchActivity";
     protected List<Game> games;
@@ -34,21 +39,30 @@ public class SearchActivity extends AppCompatActivity {
     TextView idGames;
     RecyclerView idResult;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+    public SearchFragment(){
+        // Empty constructor required
+    }
 
-        idSearch = findViewById(R.id.idSearchUsers);
-        idGames = findViewById(R.id.idGames);
-        idResult = findViewById(R.id.UsersListResult);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.activity_search, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        idSearch = view.findViewById(R.id.idSearchUsers);
+        idGames = view.findViewById(R.id.idGames);
+        idResult = view.findViewById(R.id.UsersListResult);
 
         idGames.setVisibility(View.GONE);
         // putting the game into the adapter
         games = new ArrayList<>();
-        GameAdapter gameAdapter = new GameAdapter(this, games);
+        GameAdapter gameAdapter = new GameAdapter(getContext(), games);
         idResult.setAdapter(gameAdapter);
-        idResult.setLayoutManager(new LinearLayoutManager(this));
+        idResult.setLayoutManager(new LinearLayoutManager(getContext()));
         games.clear();
 
         // doing the query search
@@ -120,14 +134,14 @@ public class SearchActivity extends AppCompatActivity {
 
     // Hide top bar
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        getSupportActionBar().hide();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
     }
     @Override
     public void onStop(){
         super.onStop();
-        getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
 
 

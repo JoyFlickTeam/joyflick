@@ -22,7 +22,7 @@ import com.bumptech.glide.Glide;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.joyflick.R;
-import com.joyflick.SearchActivity;
+import com.joyflick.SearchFragment;
 import com.joyflick.models.Post;
 import com.parse.ParseException;
 import com.parse.ParseRelation;
@@ -74,11 +74,9 @@ public class PostFragment extends Fragment {
         ivReviewGamePoster.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putBoolean("searchUsers", false);
-                Intent intent = new Intent(getActivity(), SearchActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                SearchFragment sFragment = new SearchFragment();
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, sFragment).addToBackStack(null).commit();
             }
         });
 
