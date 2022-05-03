@@ -18,6 +18,7 @@ import com.joyflick.fragments.FeedFragment;
 import com.joyflick.fragments.FollowingFragment;
 import com.joyflick.fragments.PostFragment;
 import com.joyflick.fragments.ProfileFragment;
+import com.joyflick.fragments.SearchSelectorFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new FeedFragment();
                         break;
                     case R.id.action_post:
-                        fragment = new PostFragment();
+                        fragment = new SearchSelectorFragment();
                         break;
                     case R.id.action_profile:
                     default:
@@ -99,12 +100,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
-        if(item.getItemId() == R.id.search){
-            // Navigate to search activity
-            Intent intent = new Intent(this, SearchActivity.class);
-            startActivityForResult(intent, REQUEST_CODE);
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 }

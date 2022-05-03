@@ -33,9 +33,6 @@ public class SearchActivity extends AppCompatActivity {
     SearchView idSearch;
     TextView idGames;
     RecyclerView idResult;
-    Button idSearchUser;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +42,6 @@ public class SearchActivity extends AppCompatActivity {
         idSearch = findViewById(R.id.idSearchUsers);
         idGames = findViewById(R.id.idGames);
         idResult = findViewById(R.id.UsersListResult);
-        idSearchUser = findViewById(R.id.idsearchUser);
 
         idGames.setVisibility(View.GONE);
         // putting the game into the adapter
@@ -54,14 +50,6 @@ public class SearchActivity extends AppCompatActivity {
         idResult.setAdapter(gameAdapter);
         idResult.setLayoutManager(new LinearLayoutManager(this));
         games.clear();
-
-        idSearchUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(SearchActivity.this, SearchUserActivity.class));
-                finish();
-            }
-        });
 
         // doing the query search
 
@@ -76,7 +64,6 @@ public class SearchActivity extends AppCompatActivity {
                         Log.d("Success and the search:" + s, TAG);
                         JSONObject jsonObject = json.jsonObject;
                         try{
-                            idSearchUser.setVisibility(View.GONE);
                             idGames.setVisibility(View.VISIBLE);
                             games.clear();
                             JSONArray results = jsonObject.getJSONArray("results");
@@ -130,12 +117,6 @@ public class SearchActivity extends AppCompatActivity {
 
 
     }// on create instance
-
-    private void SearchUser(View view) {
-        Intent intent = new Intent(this, SearchUserActivity.class);
-        startActivity(intent);
-        finish();
-    }
 
     // Hide top bar
     @Override

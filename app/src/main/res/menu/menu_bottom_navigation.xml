@@ -13,7 +13,7 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/action_post"
-        android:icon="@drawable/post"
+        android:icon="@drawable/search"
         android:title=""
         app:showAsAction="always" />
     <item

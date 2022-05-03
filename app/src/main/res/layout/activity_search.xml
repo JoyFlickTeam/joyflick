@@ -18,7 +18,7 @@
         android:id="@+id/idGames"
         android:layout_width="match_parent"
         android:layout_height="41dp"
-        android:layout_below="@+id/idsearchUser"
+        android:layout_below="@id/idSearchUsers"
         android:layout_marginTop="-44dp"
         android:background="@color/nav_color"
         android:text="Games"
@@ -34,16 +34,5 @@
         android:layout_alignParentBottom="true"
         android:layout_marginTop="0dp"
         android:layout_marginBottom="0dp" />
-
-    <Button
-        android:id="@+id/idsearchUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/idSearchUsers"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="-2dp"
-        android:layout_marginEnd="0dp"
-        android:text="User Search" />
-
 
 </RelativeLayout>
