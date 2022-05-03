@@ -6,13 +6,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvChat"
-        android:transcriptMode="alwaysScroll"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_above="@+id/rlSend"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rlSend"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:transcriptMode="alwaysScroll" />
 
     <RelativeLayout
         android:id="@+id/rlSend"
@@ -27,10 +27,10 @@
         <EditText
             android:id="@+id/etMessage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignBottom="@+id/ibSend"
+            android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/ibSend"
-            android:gravity="top"
             android:hint="Enter message..."
             android:imeOptions="actionSend"
             android:inputType="textShortMessage"
@@ -41,12 +41,12 @@
             android:id="@+id/ibSend"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:gravity="center"
-            android:paddingRight="10dp"
             android:layout_alignParentRight="true"
-            android:contentDescription="Send"
-            android:src="@drawable/send"
+            android:layout_centerInParent="true"
             android:background="@color/nav_color"
+            android:contentDescription="Send"
+            android:gravity="center"
+            android:src="@drawable/send"
             android:textSize="18sp" />
     </RelativeLayout>
 
