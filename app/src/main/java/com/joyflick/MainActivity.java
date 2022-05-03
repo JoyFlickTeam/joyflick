@@ -1,18 +1,25 @@
 package com.joyflick;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.shape.ShapeAppearanceModel;
 import com.joyflick.backbone.RAWGConnector;
 import com.joyflick.fragments.ChatHistoryFragment;
 import com.joyflick.fragments.FeedFragment;
@@ -35,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     final FragmentManager fragmentManager = getSupportFragmentManager();
 
+    //setup for menu item state color swapping
+    private MenuItem selectedItem;
+
     //RAWGConnector wrapper
     //use with care
     private RAWGConnector rawg;
@@ -51,12 +61,22 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
-        bottomNavigationView.setItemIconTintList(null);
+
+
+        ColorStateList color_list = ContextCompat.getColorStateList(this, R.color.icon_color_shift);
+        bottomNavigationView.setItemIconTintList(color_list);
+
+
+
+
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @SuppressLint("NewApi")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem){
                 Fragment fragment;
+                
+
                 switch (menuItem.getItemId()) {
                     case R.id.action_home:
                         fragment = new FollowingFragment();
@@ -81,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
         });
         bottomNavigationView.setSelectedItemId(R.id.action_home);
 
+
+
         rawg = new RAWGConnector();
 
 
@@ -104,6 +126,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
+        Log.i(TAG,"trigger");
+
+
+
         return super.onOptionsItemSelected(item);
     }
 }

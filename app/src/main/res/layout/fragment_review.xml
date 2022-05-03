@@ -30,23 +30,23 @@
         android:id="@+id/ivDetailUserPicture"
         android:layout_width="256px"
         android:layout_height="256px"
+        android:layout_below="@id/ivDetailGamePicture"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
-        android:layout_below="@id/ivDetailGamePicture"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/tvDetailUserName"
         android:layout_width="264dp"
         android:layout_height="wrap_content"
+        android:layout_below="@id/ivDetailGamePicture"
         android:layout_marginLeft="48px"
         android:layout_marginTop="70px"
         android:layout_toRightOf="@id/ivDetailUserPicture"
-        android:layout_below="@id/ivDetailGamePicture"
+        android:maxLines="2"
         android:textColor="#FFFFFF"
         android:textSize="28sp"
-        android:maxLines="2"
         tools:text="UserName" />
 
     <RatingBar

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/drawable/shadowshape.xml" value="0.215" />
         <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/layout/activity_chat.xml" value="0.31875" />
         <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/layout/activity_login.xml" value="0.31875" />
         <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/layout/activity_main.xml" value="0.31875" />
@@ -15,6 +16,19 @@
         <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/layout/fragment_post_comment.xml" value="0.31875" />
         <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
         <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/layout/fragment_review.xml" value="0.31875" />
+        <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/layout/fragment_user_search.xml" value="0.31875" />
+        <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/layout/item_chat.xml" value="0.31875" />
+        <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/layout/item_comment.xml" value="0.31875" />
+        <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/layout/item_following_review.xml" value="0.31875" />
+        <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/layout/item_game.xml" value="0.31875" />
+        <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/layout/item_game_rating.xml" value="0.31875" />
+        <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/layout/item_profile_rating.xml" value="0.31875" />
+        <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/layout/item_search.xml" value="0.31875" />
+        <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/layout/item_user.xml" value="0.31875" />
+        <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/layout/message_incoming.xml" value="0.31875" />
+        <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/layout/message_outgoing.xml" value="0.31875" />
+        <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.33" />
+        <entry key="..\:/Linux/AndroidApplications/joyflick/app/src/main/res/menu/menu_main.xml" value="0.31875" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/joyflick/app/src/main/res/drawable/message_incoming.xml" value="0.1205" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/joyflick/app/src/main/res/drawable/message_outgoing.xml" value="0.1205" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/joyflick/app/src/main/res/layout/activity_chat.xml" value="0.25416666666666665" />

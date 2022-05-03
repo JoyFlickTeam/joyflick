@@ -88,14 +88,14 @@
         android:id="@+id/etComment"
         android:layout_width="356dp"
         android:layout_height="300dp"
-        android:background="#C4C4C4"
-        android:hint="Add a comment..."
+        android:layout_below="@id/tvCommenterReview"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:textSize="22sp"
+        android:layout_marginBottom="10dp"
+        android:background="#C4C4C4"
         android:gravity="top"
-        android:layout_below="@id/tvCommenterReview" />
+        android:hint="Add a comment..."
+        android:textSize="22sp" />
 
     <ImageButton
         android:id="@+id/ibCommentPost"
