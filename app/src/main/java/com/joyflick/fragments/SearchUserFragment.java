@@ -1,50 +1,62 @@
-package com.joyflick;
+package com.joyflick.fragments;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.joyflick.Adapter.userAdapter;
+import com.joyflick.R;
 import com.joyflick.models.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchUserActivity extends AppCompatActivity {
+public class SearchUserFragment extends Fragment {
     public static final String TAG = "SearchUserActivity";
     protected List<ParseUser> users;
     SearchView idSearchuser;
     TextView idUserText;
     RecyclerView UserListResult;
 
+    public SearchUserFragment(){
+        // Empty constructor required
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstance) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_user_search, container, false);
+    }
 
-        super.onCreate(savedInstance);
-        setContentView(R.layout.activity_user_search);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        idSearchuser = findViewById(R.id.idSearchUsers);
-        idUserText = findViewById(R.id.idUserText);
-        UserListResult = findViewById(R.id.UsersListResult);
+        idSearchuser = view.findViewById(R.id.idSearchUsers);
+        idUserText = view.findViewById(R.id.idUserText);
+        UserListResult = view.findViewById(R.id.UsersListResult);
 
         idUserText.setVisibility(View.GONE);
 
         users = new ArrayList<ParseUser>();
-        userAdapter adapater = new userAdapter(this, users);
+        userAdapter adapater = new userAdapter(getContext(), users);
         UserListResult.setAdapter(adapater);
-        UserListResult.setLayoutManager(new LinearLayoutManager(this));
+        UserListResult.setLayoutManager(new LinearLayoutManager(getContext()));
         users.clear();
 
         idSearchuser.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -76,13 +88,13 @@ public class SearchUserActivity extends AppCompatActivity {
 
     // Hide top bar
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        getSupportActionBar().hide();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
     }
     @Override
     public void onStop(){
         super.onStop();
-        getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
 }

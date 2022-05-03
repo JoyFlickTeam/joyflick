@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.joyflick.backbone.RAWGConnector;
+import com.joyflick.fragments.ChatHistoryFragment;
 import com.joyflick.fragments.FeedFragment;
 import com.joyflick.fragments.FollowingFragment;
 import com.joyflick.fragments.PostFragment;
@@ -65,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.action_post:
                         fragment = new SearchSelectorFragment();
+                        break;
+                    case R.id.action_chat:
+                        fragment = new ChatHistoryFragment();
                         break;
                     case R.id.action_profile:
                     default:

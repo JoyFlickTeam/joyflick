@@ -32,25 +32,6 @@
             android:name=".MainActivity"
             android:exported="true"></activity>
         <activity
-            android:name=".SearchActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@layout/activity_search"/>
-        </activity>
-        <activity
-            android:name=".SearchUserActivity"
-            android:exported="true"
-            tools:ignore="Instantiatable">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@layout/activity_user_search"/>
-        </activity>
-        <activity
             android:name=".ChatActivity"
             android:exported="true" />
 

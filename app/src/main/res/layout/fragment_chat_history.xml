@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#131D3E"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvNoChatHistory"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:layout_marginTop="10dp"
+        android:textSize="50sp"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        android:text="You do not have any message history.\n\n Try messaging a user to see their name here." />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvChatUsers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="0dp" />
+</RelativeLayout>

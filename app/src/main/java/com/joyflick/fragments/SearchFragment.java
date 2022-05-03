@@ -1,12 +1,10 @@
-package com.joyflick;
+package com.joyflick.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -20,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.joyflick.Adapter.GameAdapter;
+import com.joyflick.R;
 import com.joyflick.models.Game;
 
 import org.json.JSONArray;
@@ -46,7 +45,7 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_search, container, false);
+        return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
     @Override

@@ -17,6 +17,11 @@
         android:title=""
         app:showAsAction="always" />
     <item
+        android:id="@+id/action_chat"
+        android:icon="@drawable/chat"
+        android:title=""
+        app:showAsAction="always" />
+    <item
         android:id="@+id/action_profile"
         android:icon="@drawable/profile"
         android:title=""
