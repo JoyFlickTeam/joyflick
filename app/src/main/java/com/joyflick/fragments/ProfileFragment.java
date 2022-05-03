@@ -51,6 +51,7 @@ public class ProfileFragment extends Fragment {
     public final static int PICK_PHOTO_CODE = 1046;
     private ImageView ivProfileImage;
     private TextView tvProfileName;
+    private ImageButton ibSettings;
     private ImageButton ibFollow;
     private ImageButton ibUnfollow;
     private ImageButton ibMessage;
@@ -62,7 +63,6 @@ public class ProfileFragment extends Fragment {
     private boolean isFollowing;
     protected ProfilePostAdapter adapter;
     protected List<Post> posts;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,6 +84,7 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         tvProfileName = view.findViewById(R.id.tvProfileName);
         ivProfileImage = view.findViewById(R.id.ivProfileImage);
+        ibSettings = view.findViewById(R.id.ibSettings);
         ibFollow = view.findViewById(R.id.ibFollow);
         ibUnfollow = view.findViewById(R.id.ibUnfollow);
         ibMessage = view.findViewById(R.id.ibMessage);
@@ -121,6 +122,7 @@ public class ProfileFragment extends Fragment {
             // Viewing someone else's profile
             Log.i(TAG, "Viewing someone else's profile, querying user...");
             queryUser();
+            ibSettings.setVisibility(View.GONE);
             btnLogout.setVisibility(View.GONE);
             btnProfilePhoto.setVisibility(View.GONE);
         }
@@ -128,6 +130,7 @@ public class ProfileFragment extends Fragment {
             // Viewing logged in user's profile details
             Log.i(TAG, "Viewing own profile, show profile edit options");
             ParseUser currentUser = ParseUser.getCurrentUser();
+            ibSettings.setVisibility(View.VISIBLE);
             btnLogout.setVisibility(View.VISIBLE);
             btnProfilePhoto.setVisibility(View.VISIBLE);
             isFollowing = false;
@@ -149,6 +152,15 @@ public class ProfileFragment extends Fragment {
             queryPosts(currentUser);
         }
 
+        ibSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to settings fragment
+                SettingsFragment sFragment = new SettingsFragment();
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, sFragment).addToBackStack(null).commit();
+            }
+        });
         ibFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
