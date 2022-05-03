@@ -1,15 +1,16 @@
 package com.joyflick.models;
 
 import com.parse.ParseClassName;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 @ParseClassName("User")
 public class User extends ParseObject {
     public static final String KEY_EMAIL_VERIFIED = "emailVerified";
     public static final String KEY_UPDATED_AT = "updatedAt";
-    public static final String KEY_USERNAME = "username";
+    public static String KEY_USERNAME = "username";
     public static final String KEY_EMAIL = "email";
-    public static final String KEY_PROFILE = "profilePicture";
+    public static String KEY_PROFILE = "profilePicture";
     public static final String KEY_FOLLOWING = "following";
     public static final String KEY_CREATED_AT = "createdAt";
     public static final String KEY_OBJECTID = "objectId";
@@ -44,5 +45,13 @@ public class User extends ParseObject {
 
     public static String getKeyObjectid() {
         return KEY_OBJECTID;
+    }
+
+    public void setKeyUsername(String username) {
+        KEY_USERNAME = username;
+    }
+
+    public void setKeyProfile(String profilePicture) {
+        KEY_PROFILE = profilePicture;
     }
 }
