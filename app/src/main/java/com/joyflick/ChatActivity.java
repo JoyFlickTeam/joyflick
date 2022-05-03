@@ -53,7 +53,7 @@ public class ChatActivity extends AppCompatActivity {
         // Get other user's id
         if(getIntent().getExtras() != null) {
             otherId = getIntent().getExtras().getString("oId");
-            Log.i(TAG, otherId);
+            Log.i(TAG, "Starting chat with " + otherId);
         }
         else{
             Log.e(TAG, "Entering chat activity without other user id... this shouldn't happen!");
@@ -63,6 +63,7 @@ public class ChatActivity extends AppCompatActivity {
         // User login
         if (ParseUser.getCurrentUser() != null) { // start with existing user
             userId = ParseUser.getCurrentUser().getObjectId();
+            Log.i(TAG, "Logging into chat as " + userId);
             startWithCurrentUser();
         } else { // If not logged in, login as a new anonymous user
             Log.e(TAG, "Entering chat activity as anonymous user... this shouldn't happen!");
