@@ -1,6 +1,7 @@
 package com.joyflick.Adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,13 +9,17 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.joyflick.R;
+import com.joyflick.fragments.GameDetailFragment;
+import com.joyflick.fragments.ProfileFragment;
 import com.joyflick.models.Game;
 import com.joyflick.models.User;
 import com.parse.Parse;
@@ -96,6 +101,7 @@ public class userAdapter extends RecyclerView.Adapter<userAdapter.ViewHolder> im
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        RelativeLayout container;
         TextView username;
         ImageView userImage;
 
@@ -103,6 +109,7 @@ public class userAdapter extends RecyclerView.Adapter<userAdapter.ViewHolder> im
             super(userView);
             username = userView.findViewById(R.id.UserName);
             userImage = userView.findViewById(R.id.UserPicture);
+            container = userView.findViewById(R.id.userContainer);
         }
 
         public void bind(ParseUser user) {
@@ -117,8 +124,18 @@ public class userAdapter extends RecyclerView.Adapter<userAdapter.ViewHolder> im
             else{
                 Glide.with(userImage.getContext()).load(imageUrl).centerCrop().placeholder(R.drawable.logo1).into(userImage);
             }
-            //Glide.with(userImage.getContext()).load(imageUrl.getUrl()).into(userImage);
-            //Glide.with(userImage.getContext()).load(imageUrl).centerCrop().placeholder(R.drawable.logo1).into(userImage);
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Navigate to game detail fragment, passing the game's ID
+                    Bundle bundle = new Bundle();
+                    bundle.putString("uId", user.getObjectId());
+                    ProfileFragment pFragment = new ProfileFragment();
+                    pFragment.setArguments(bundle);
+                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, pFragment).addToBackStack(null).commit();
+                }
+            });
         }
     }
 }

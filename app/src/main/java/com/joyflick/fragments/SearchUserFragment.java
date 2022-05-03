@@ -64,7 +64,7 @@ public class SearchUserFragment extends Fragment {
             public boolean onQueryTextSubmit(String s) {
                 users.clear();
                 ParseQuery<ParseUser> query= ParseUser.getQuery();
-                query.whereEqualTo("username", s);
+                query.whereContains("username", s);
                 Log.i(TAG, "Querying users for " + User.KEY_USERNAME + " equal to " + s);
                 query.findInBackground(new FindCallback<ParseUser>() {
                     @Override
