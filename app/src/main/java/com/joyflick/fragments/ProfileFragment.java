@@ -56,7 +56,6 @@ public class ProfileFragment extends Fragment {
     private ImageButton ibUnfollow;
     private ImageButton ibMessage;
     private Button btnLogout;
-    private Button btnProfilePhoto;
     private TextView tvNoUserReviews;
     private RecyclerView rvUserReviews;
     private String userId;
@@ -89,7 +88,6 @@ public class ProfileFragment extends Fragment {
         ibUnfollow = view.findViewById(R.id.ibUnfollow);
         ibMessage = view.findViewById(R.id.ibMessage);
         btnLogout = view.findViewById(R.id.btnLogout);
-        btnProfilePhoto = view.findViewById(R.id.btnProfilePhoto);
         rvUserReviews = view.findViewById(R.id.rvUserReviews);
         tvNoUserReviews = view.findViewById(R.id.tvNoUserReviews);
         isFollowing = false;
@@ -110,21 +108,12 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        // Change profile picture
-        btnProfilePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onPickPhoto(view);
-            }
-        });
-
         if(!userId.equals(ParseUser.getCurrentUser().getObjectId())){
             // Viewing someone else's profile
             Log.i(TAG, "Viewing someone else's profile, querying user...");
             queryUser();
             ibSettings.setVisibility(View.GONE);
             btnLogout.setVisibility(View.GONE);
-            btnProfilePhoto.setVisibility(View.GONE);
         }
         else{
             // Viewing logged in user's profile details
@@ -132,7 +121,6 @@ public class ProfileFragment extends Fragment {
             ParseUser currentUser = ParseUser.getCurrentUser();
             ibSettings.setVisibility(View.VISIBLE);
             btnLogout.setVisibility(View.VISIBLE);
-            btnProfilePhoto.setVisibility(View.VISIBLE);
             isFollowing = false;
             ibFollow.setVisibility(View.GONE);
             ibUnfollow.setVisibility(View.GONE);
@@ -299,100 +287,6 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
-    }
-
-    // Trigger gallery selection for a photo
-    public void onPickPhoto (View view) {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        Log.i("Profile Fragmentation","Tagout");
-        startActivityForResult(intent, PICK_PHOTO_CODE);
-
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if((data != null) && requestCode == PICK_PHOTO_CODE) {
-            Uri photoUri = data.getData();
-            Bitmap selectedImage = loadFromUri(photoUri);
-
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            selectedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] bitmapBytes = stream.toByteArray();
-
-            ParseUser userBeforeSave = ParseUser.getCurrentUser();
-
-            ParseFile parseFile = new ParseFile("profile_"+userBeforeSave.getUsername()+".png",bitmapBytes);
-
-            parseFile.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if(e==null)
-                    {
-                        userUpdate(parseFile);
-                    }
-                    else
-                    {
-                        Log.e(TAG,"Failed on Saving parsefile to cloud:"+e);
-                    }
-                }
-            });
-
-
-        }
-    }
-
-    public void userUpdate(ParseFile file)
-    {
-        Log.i(TAG,"checko!");
-
-
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        currentUser.put("profilePicture", file);
-
-        currentUser.saveInBackground(e -> {
-           if(e == null)
-           {
-               ParseUser uploadedUser = ParseUser.getCurrentUser();
-
-               Log.i(TAG, "Profile photo update success");
-               Toast.makeText(getContext(), "Profile photo has been updated.", Toast.LENGTH_SHORT).show();
-               // Update profile picture displayed
-               ParseFile profilePicture = uploadedUser.getParseFile("profilePicture");
-               Glide.with(getContext()).load(profilePicture.getUrl()).placeholder(R.drawable.logo1).into(ivProfileImage);
-           }
-           else
-           {
-               Log.e(TAG,"Failed on Uploading the User with profile file:"+e);
-           }
-        });
-    }
-
-
-
-    public Bitmap loadFromUri(Uri photoUri) {
-        Bitmap image = null;
-        try {
-            // Check Android version
-            if(Build.VERSION.SDK_INT > 27){
-                // Newer version detected - use new decodeBitmap method
-                ImageDecoder.Source source = ImageDecoder.createSource(getContext().getContentResolver(), photoUri);
-                image = ImageDecoder.decodeBitmap(source);
-            } else {
-                // Use getBitmap for older Android versions
-                image = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), photoUri);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
-    }
-
-    private File getPhotoFileUri(String fileName) {
-        File mediaStorageDir = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
-        if(!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
-            Log.d(TAG, "Failed to create directory");
-        }
-        return new File(mediaStorageDir.getPath() + File.separator + fileName);
     }
 
     // For hiding toolbar

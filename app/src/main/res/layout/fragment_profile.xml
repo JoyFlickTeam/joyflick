@@ -68,19 +68,10 @@
         app:srcCompat="@drawable/chat" />
 
     <Button
-        android:id="@+id/btnProfilePhoto"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/ivProfileImage"
-        android:layout_marginTop="5dp"
-        android:backgroundTint="#808080"
-        android:text="Change Profile Photo" />
-
-    <Button
         android:id="@+id/btnLogout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/btnProfilePhoto"
+        android:layout_below="@id/ivProfileImage"
         android:layout_marginBottom="10dp"
         android:backgroundTint="#808080"
         android:text="Log Out" />

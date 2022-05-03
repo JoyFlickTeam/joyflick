@@ -1,6 +1,7 @@
 package com.joyflick.Adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,10 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.joyflick.R;
+import com.joyflick.fragments.ProfileFragment;
 import com.joyflick.models.Comments;
 import com.joyflick.models.Post;
 import com.parse.ParseFile;
@@ -68,7 +71,18 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             else{
                 Glide.with(context).load(R.drawable.logo1).centerCrop().into(ivCommentUserPicture);
             }
-
+            // Navigate to commenter's profile
+            ivCommentUserPicture.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("uId", comment.getUser().getObjectId());
+                    ProfileFragment pFragment = new ProfileFragment();
+                    pFragment.setArguments(bundle);
+                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, pFragment).addToBackStack(null).commit();
+                }
+            });
         }
     }
 

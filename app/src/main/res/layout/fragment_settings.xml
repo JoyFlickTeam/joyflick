@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="#131D3E"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -8,5 +10,120 @@
         android:id="@+id/tvProfileSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="50dp"
+        android:textColor="#FFFFFF"
         android:text="Profile Settings" />
+
+    <ImageView
+        android:id="@+id/ivSettingsProfileImage"
+        android:layout_width="256px"
+        android:layout_height="256px"
+        android:layout_below="@id/tvProfileSettings"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_alignStart="@id/etChangeUsername"
+        android:layout_centerHorizontal="true"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvSettingsProfileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="48px"
+        android:layout_marginTop="70px"
+        android:layout_below="@id/tvProfileSettings"
+        android:layout_toRightOf="@id/ivSettingsProfileImage"
+        android:textColor="#FFFFFF"
+        android:textSize="32sp"
+        tools:text="UserName" />
+
+    <Button
+        android:id="@+id/btnChangeProfilePhoto"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/ivSettingsProfileImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/nav_color"
+        android:text="Change Profile Photo" />
+
+    <EditText
+        android:id="@+id/etChangeUsername"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="41dp"
+        android:background="#C4C4C4"
+        android:backgroundTint="#C4C4C4"
+        android:ems="10"
+        android:hint="New Username"
+        android:layout_below="@id/btnChangeProfilePhoto"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColorHint="#020202"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnChangeUsername"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/etChangeUsername"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="@color/nav_color"
+        android:text="Change Username" />
+
+    <EditText
+        android:id="@+id/etChangePassword"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_below="@id/btnChangeUsername"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="32dp"
+        android:background="#C4C4C4"
+        android:backgroundTint="#C4C4C4"
+        android:ems="10"
+        android:hint="New Password"
+        android:inputType="textPassword"
+        android:textAlignment="center"
+        android:textColorHint="#020202"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/etConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_below="@id/etChangePassword"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
+        android:background="#C4C4C4"
+        android:backgroundTint="#C4C4C4"
+        android:ems="10"
+        android:hint="Confirm New Password"
+        android:inputType="textPassword"
+        android:textAlignment="center"
+        android:textColorHint="#020202"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnChangePassword"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/etConfirmPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="@color/nav_color"
+        android:text="Change Password" />
+
 </RelativeLayout>
