@@ -10,18 +10,19 @@
     tools:context=".LoginActivity">
 
     <EditText
+        android:background="@drawable/edit_text_background"
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
         android:layout_height="53dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginTop="41dp"
-        android:background="#C4C4C4"
         android:backgroundTint="#C4C4C4"
         android:ems="10"
         android:hint="Username"
+        android:paddingStart="10dp"
         android:inputType="textPersonName"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textColorHint="#020202"
         app:layout_constraintBottom_toTopOf="@+id/etPassword"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,20 +31,19 @@
         app:layout_constraintTop_toBottomOf="@+id/LoginImage" />
 
     <EditText
+        android:paddingStart="10dp"
+        android:textAlignment="textStart"
+        android:background="@drawable/edit_text_background"
         android:id="@+id/etPassword"
         android:layout_width="0dp"
         android:layout_height="49dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-
         android:layout_marginTop="20dp"
-
-        android:background="#C4C4C4"
         android:backgroundTint="#C4C4C4"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        android:textAlignment="center"
         android:textColorHint="#090909"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -51,13 +51,13 @@
         app:layout_constraintTop_toBottomOf="@+id/etUsername" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:background="@drawable/edit_text_background"
         android:id="@+id/rLogin"
         android:layout_width="116dp"
         android:layout_height="50dp"
         android:layout_marginStart="47dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="326dp"
-        android:background="#C4C4C4"
         android:backgroundTint="#C1C1C1"
         android:hapticFeedbackEnabled="false"
         android:text="Login"
@@ -70,13 +70,13 @@
         tools:ignore="TextContrastCheck" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:background="@drawable/edit_text_background"
         android:id="@+id/register"
         android:layout_width="116dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="47dp"
         android:layout_marginBottom="326dp"
-        android:background="#C4C4C4"
         android:backgroundTint="#C1C1C1"
         android:text="Register?"
         android:textColor="#000000"

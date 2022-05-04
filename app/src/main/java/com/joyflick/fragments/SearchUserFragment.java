@@ -54,6 +54,22 @@ public class SearchUserFragment extends Fragment {
         idUserText.setVisibility(View.GONE);
 
         users = new ArrayList<ParseUser>();
+        // trying to add the users in the adapater
+        ParseQuery<ParseUser> userQuery = new ParseQuery<ParseUser>("User");
+        userQuery.addAscendingOrder("updatedAt");
+        userQuery.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> objects, ParseException e) {
+                Log.i(TAG, "users in object: " + objects.toString());
+                for (ParseUser user : objects){
+                    ParseUser adding = new ParseUser();
+                    adding.setUsername(user.getUsername());
+                    adding.getParseFile(String.valueOf(user.getParseFile("profilePicture")));
+                    users.add(adding);
+                }
+            }
+        });
+        // creating an adapter
         userAdapter adapater = new userAdapter(getContext(), users);
         UserListResult.setAdapter(adapater);
         UserListResult.setLayoutManager(new LinearLayoutManager(getContext()));
