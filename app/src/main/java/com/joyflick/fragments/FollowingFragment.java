@@ -70,8 +70,8 @@ public class FollowingFragment extends Fragment {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         query.addDescendingOrder(Post.KEY_CREATED_AT);
-        query.setLimit(10);
-        Log.i(TAG, "Querying 10 latest posts");
+        query.setLimit(30);
+        Log.i(TAG, "Querying 30 latest posts");
 
         query.findInBackground(new FindCallback<Post>() {
             @Override
