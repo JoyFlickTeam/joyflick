@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,6 +42,7 @@ public class CommentsFragment extends Fragment {
     public static final String GAME = "https://api.rawg.io/api/games/%s?key=8abe1aadb6a6459db418c8ac8239aa05";
     private ImageView ivCommentsTopProfileImage;
     private TextView tvCommentsTopProfileName;
+    private RatingBar rbRatingComments;
     private ImageView ivCommentsTopGameImage;
     private TextView tvCommentsTopGameName;
     private TextView tvCommentsTopReview;
@@ -68,6 +70,7 @@ public class CommentsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ivCommentsTopProfileImage = view.findViewById(R.id.ivCommentsTopProfileImage);
         tvCommentsTopProfileName = view.findViewById(R.id.tvCommentsTopProfileName);
+        rbRatingComments = view.findViewById(R.id.rbRatingComments);
         ivCommentsTopGameImage = view.findViewById(R.id.ivCommentsTopGameImage);
         tvCommentsTopGameName = view.findViewById(R.id.tvCommentsTopGameName);
         tvCommentsTopReview = view.findViewById(R.id.tvCommentsTopReview);
@@ -111,6 +114,7 @@ public class CommentsFragment extends Fragment {
                 }
                 // Display post
                 tvCommentsTopReview.setText(post.getPost());
+                rbRatingComments.setRating(Float.valueOf(post.getRating().toString()));
                 // Display game info
                 queryGame(post.getGameId());
                 // Navigate to user's profile page

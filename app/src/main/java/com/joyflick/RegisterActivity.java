@@ -71,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 // signup success
                 goLoginPage();
-                Toast.makeText(RegisterActivity.this, "Signed up to JoyFlick! Please log in.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Welcome to JoyFlick!", Toast.LENGTH_SHORT).show();
             }
         });
     }
