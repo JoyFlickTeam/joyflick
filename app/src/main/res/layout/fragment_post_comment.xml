@@ -73,13 +73,14 @@
         android:layout_width="400dp"
         android:layout_height="88dp"
         android:layout_below="@id/ivCommentProfileImage"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="10dp"
-        android:layout_centerHorizontal="true"
-        android:background="@color/nav_color"
+        android:background="#0A125C"
         android:gravity="top"
         android:maxLines="4"
+        android:paddingStart="100dp"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         tools:text="Wow this game was not good!" />
@@ -92,17 +93,18 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:background="#C4C4C4"
+        android:background="@drawable/edit_text_background"
+
         android:gravity="top"
         android:hint="Add a comment..."
         android:textSize="22sp" />
 
     <ImageButton
+        android:background="#0A125C"
         android:id="@+id/ibCommentPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/etComment"
         android:layout_alignRight="@id/etComment"
-        android:background="@color/nav_color"
         app:srcCompat="@drawable/check" />
 </RelativeLayout>
